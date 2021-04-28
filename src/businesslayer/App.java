@@ -1,4 +1,6 @@
 package businesslayer;
+import businesslayer.model.IUser;
+import businesslayer.model.User;
 import presentationlayer.LoginScreen;
 import presentationlayer.MainScreen;
 
@@ -10,7 +12,7 @@ public class App {
         System.out.println("Test");
 
 //        MainScreen mainScreen = new MainScreen();
-        LoginScreen loginScreen = new LoginScreen();
+//        LoginScreen loginScreen = new LoginScreen();
 //        MainScreen mainScreen = new MainScreen();
 
     }
