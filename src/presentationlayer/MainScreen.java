@@ -5,6 +5,11 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+// UserCollectionsScreen
+// ShowUsersScreen
+// ShowFollowedUsersCollections
+// StatisticsScreen
+// Logout
 public class MainScreen extends JFrame{
 
     private JPanel buttonsPanel;

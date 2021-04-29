@@ -1,4 +1,5 @@
 package businesslayer;
+import businesslayer.controller.Controller;
 import businesslayer.model.IUser;
 import businesslayer.model.User;
 import presentationlayer.LoginScreen;
@@ -12,8 +13,10 @@ public class App {
         System.out.println("Test");
 
 //        MainScreen mainScreen = new MainScreen();
-//        LoginScreen loginScreen = new LoginScreen();
+        LoginScreen loginScreen = new LoginScreen();
 //        MainScreen mainScreen = new MainScreen();
+        Controller controller = new Controller(null, loginScreen);
+
 
     }
 
