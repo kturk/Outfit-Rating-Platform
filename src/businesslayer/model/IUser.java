@@ -4,6 +4,8 @@ import java.util.List;
 
 public interface IUser {
 
+    int getId();
+
     String getUserName();
 
     void setUserName(String userName);
@@ -12,21 +14,24 @@ public interface IUser {
 
     void setPassword(String password);
 
-    List<IUser> getFollowingUsers();
+    // @XmlElement
+    List<User> getFollowingUsers();
 
-    List<IUser> getFollowerUsers();
+    // @XmlElement
+    List<User> getFollowerUsers();
 
-    List<ICollection> getCollections();
+    // @XmlElement
+    List<Collection> getCollections();
 
-    void addFollowingUser(IUser user);
+    void addFollowingUser(User user);
 
     void removeFollowingUser(IUser user);
 
-    void addFollowerUser(IUser user);
+    void addFollowerUser(User user);
 
     void removeFollowerUser(IUser user);
 
-    void createCollection(ICollection collection);
+    void createCollection(Collection collection);
 
     void deleteCollection(ICollection collection);
 
