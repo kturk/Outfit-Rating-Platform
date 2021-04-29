@@ -8,9 +8,9 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Users
 {
+    @XmlElement(name = "User")
     private List<User> userList = new ArrayList<User>();
 
-    @XmlElement(name = "User")
     public List<User> getUserList() {
         return this.userList;
     }

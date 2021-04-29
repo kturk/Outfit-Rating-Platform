@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 
 @XmlRootElement(name = "User")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class User implements IUser {
+public class User{
 
     private static int count = 1;
     private int id;
@@ -35,80 +35,65 @@ public class User implements IUser {
         this.collections = new ArrayList<Collection>();
     }
 
-    @XmlAttribute
-    @Override
+//    @XmlAttribute
     public int getId() { return this.id;}
 
-    @XmlElement(type = Object.class)
-    @Override
+//    @XmlElement
     public String getUserName() {
         return userName;
     }
 
-    @Override
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    @XmlElement(type = Object.class)
-    @Override
+//    @XmlElement
     public String getPassword() {
         return password;
     }
 
-    @Override
     public void setPassword(String password) {
         this.password = password;
     }
 
-    @XmlElement(type = Object.class)
-    @Override
+//    @XmlElement
     public List<User> getFollowingUsers() {
         return followingUsers;
     }
 
-    @XmlElement(type = Object.class)
-    @Override
+//    @XmlElement
     public List<User> getFollowerUsers() {
         return followerUsers;
     }
 
-    @Override
     public List<Collection> getCollections() {
         return collections;
     }
 
-    @Override
     public void addFollowingUser(User user) {
         this.getFollowingUsers().add(user);  // TODO direct access or getter?
     }
 
-    @Override
-    public void removeFollowingUser(IUser user) {
+    public void removeFollowingUser(User user) {
         this.getFollowingUsers().remove(user);
     }
 
-    @Override
     public void addFollowerUser(User user) {
         this.getFollowerUsers().add(user);
     }
 
-    @Override
-    public void removeFollowerUser(IUser user) {
+    public void removeFollowerUser(User user) {
         this.getFollowerUsers().remove(user);
     }
 
-    @Override
     public void createCollection(Collection collection) {
         this.getCollections().add(collection);
     }
 
-    @Override
-    public void deleteCollection(ICollection collection) {
+    public void deleteCollection(Collection collection) {
         this.getCollections().remove(collection);
     }
 
-    @Override
     public void addOutfitToCollection(IOutfit outfit, int collectionId) {
         ICollection selectedCollection = getCollectionById(collectionId);
         if (selectedCollection != null)
@@ -117,7 +102,6 @@ public class User implements IUser {
             throw new NoSuchElementException();
     }
 
-    @Override
     public void removeOutfitFromCollection(IOutfit outfit, int collectionId) {
         ICollection selectedCollection = getCollectionById(collectionId);
         if (selectedCollection != null)
