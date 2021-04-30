@@ -57,4 +57,13 @@ public class Collection implements ICollection {
     public void removeOutfit(int outfitId) {
         this.getOutfitIds().remove(outfitId);  // TODO Check the contains logic here?
     }
+
+    @Override
+    public String toString() {
+        return "Collection{" +
+                "id=" + id +
+                ", collectionName='" + collectionName + '\'' +
+                ", outfitIds=" + outfitIds +
+                '}';
+    }
 }

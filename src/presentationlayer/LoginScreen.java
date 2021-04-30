@@ -3,6 +3,8 @@ package presentationlayer;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginScreen extends JFrame{
 
@@ -33,10 +35,8 @@ public class LoginScreen extends JFrame{
         initializeComponents();
         locateComponents();
         addComponents();
-
-        buttonListeners();
-
-        setVisible(true);
+        setLocationRelativeTo(null);
+//        setVisible(true);
 
     }
 
@@ -76,21 +76,36 @@ public class LoginScreen extends JFrame{
         loginPanel.add(loginButton);
     }
 
-    public void buttonListeners() {
-        loginButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                navigateMainScreen();
-            }
-        });
+    public void addButtonListener(ActionListener actionListener) {
+        loginButton.addActionListener(actionListener);
+//        loginButton.addActionListener(new ActionListener(){
+//            public void actionPerformed(ActionEvent e){
+//                getCredentials();
+//            }
+//        });
+    }
+
+    public Map<String, String> getCredentials() {
+        Map<String, String> credentials = new HashMap<String, String>();
+        credentials.put("username", usernameField.getText());
+        credentials.put("password", new String(passwordField.getPassword()));
+
+        return(credentials);
+    }
+
+    public void invalidCredentialError(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage);
     }
 
     public void setVisible(Boolean visible){
         setVisible(visible);
     }
 
-    public void navigateMainScreen(){
+    public void closeScreen(){
         dispose();
-        MainScreen ms = new MainScreen();
-        ms.setVisible(true);
+    }
+
+    public void showScreen(){
+        setVisible(true);
     }
 }

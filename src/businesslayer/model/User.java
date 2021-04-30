@@ -4,10 +4,11 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Observable;
 
 @XmlRootElement(name = "User")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class User{
+public class User extends Observable {
 
     private static int count = 1;
     private int id;
