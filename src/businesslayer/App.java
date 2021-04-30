@@ -1,6 +1,7 @@
 package businesslayer;
 import businesslayer.model.User;
 import businesslayer.model.Users;
+import dataaccesslayer.DataHandler;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -14,9 +15,6 @@ import java.io.FileOutputStream;
 
 public class App {
 
-//    Users users = new Users();
-//    { }
-
     public static void main(String[] args) throws Exception{
 
 //        MainScreen mainScreen = new MainScreen();
@@ -27,7 +25,7 @@ public class App {
         Users users = new Users();
 
         User testUser1 = new User("kemal", "arda");
-        User follow1 = new User("can", "pompa");
+        User follow1 = new User("can", "pas1");
         User follow2 = new User("arda", "qubit");
         testUser1.addFollowingUser(follow1);
         testUser1.addFollowingUser(follow2);
@@ -49,32 +47,17 @@ public class App {
         users.getUserList().add(testUser3);
 
 
-        userMarshaling(users);
-        userUnMarshaling();
+        DataHandler dataHandler = new DataHandler("test.xml");
+        dataHandler.writeXML(users);
 
-    }
-
-    private static void userUnMarshaling() throws Exception {
-        JAXBContext jaxbContext = JAXBContext.newInstance(Users.class);
-        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-        Users read_users = (Users) jaxbUnmarshaller.unmarshal( new FileInputStream("test.xml") );
-
-        for(User user : read_users.getUserList())
-        {
+        Users read_users = dataHandler.readXML();
+        for (User user: read_users.getUserList()){
             System.out.println(user.getId());
             System.out.println(user.getUserName());
             System.out.println(user.getPassword());
             System.out.println(user.getFollowingUsers().get(0).getId());
         }
+
+
     }
-
-    private static void userMarshaling(Users users) throws Exception {
-        JAXBContext contextObj = JAXBContext.newInstance(Users.class);
-        Marshaller marshallerObj = contextObj.createMarshaller();
-
-        marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshallerObj.marshal(users, new FileOutputStream("test.xml"));
-    }
-
-
 }
