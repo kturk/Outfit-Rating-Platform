@@ -53,8 +53,10 @@ public class Mediator {
         mainController.showView();
     }
 
-    public void navigateToUsersCollectionsScreen(List<Collection> collections){
-        userCollectionsController = new UserCollectionsController(collections, new UserCollectionsScreen(), this);
+    public void navigateToUsersCollectionsScreen(User loggedInUser){
+        UserCollectionsScreen screen = new UserCollectionsScreen();
+        loggedInUser.attach( screen);
+        userCollectionsController = new UserCollectionsController(loggedInUser, screen, this);
         userCollectionsController.showView();
     }
 }

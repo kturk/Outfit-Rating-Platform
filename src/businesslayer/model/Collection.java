@@ -60,10 +60,11 @@ public class Collection implements ICollection {
 
     @Override
     public String toString() {
-        return "Collection{" +
-                "id=" + id +
-                ", collectionName='" + collectionName + '\'' +
-                ", outfitIds=" + outfitIds +
-                '}';
+        return "Collection" + id + ": " + collectionName + getNumOfOutfits() + "Outfits";
+
+    }
+
+    private String getNumOfOutfits(){
+        return Integer.toString(outfitIds.size());
     }
 }

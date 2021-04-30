@@ -78,11 +78,6 @@ public class LoginScreen extends JFrame{
 
     public void addButtonListener(ActionListener actionListener) {
         loginButton.addActionListener(actionListener);
-//        loginButton.addActionListener(new ActionListener(){
-//            public void actionPerformed(ActionEvent e){
-//                getCredentials();
-//            }
-//        });
     }
 
     public Map<String, String> getCredentials() {

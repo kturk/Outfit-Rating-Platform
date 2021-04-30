@@ -44,7 +44,7 @@ public class MainController {
     class UserCollectionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             mainView.closeScreen();
-            mediator.navigateToUsersCollectionsScreen(userModel.getCollections());
+            mediator.navigateToUsersCollectionsScreen(userModel);
         }
     }
 

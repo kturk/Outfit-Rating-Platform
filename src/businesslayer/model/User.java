@@ -1,22 +1,30 @@
 package businesslayer.model;
 
+import businesslayer.Observable;
+import businesslayer.Observer;
+
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Observable;
 
 @XmlRootElement(name = "User")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class User extends Observable {
+public class User implements Observable{
 
     private static int count = 1;
     private int id;
     private String userName;
     private String password;
+    @XmlElementWrapper(name="FollowingUsers")
+    @XmlElement(name = "FollowingUser")
     private List<User> followingUsers;
+    @XmlElementWrapper(name="FollowersUsers")
+    @XmlElement(name = "FollowerUser")
     private List<User> followerUsers;
     private List<Collection> collections;
+    @XmlTransient
+    private List<Observer> observers;
 
     public User() {
         this.id = count;
@@ -24,6 +32,7 @@ public class User extends Observable {
         this.followingUsers = new ArrayList<User>();
         this.followerUsers = new ArrayList<User>();
         this.collections = new ArrayList<Collection>();
+        this.observers = new ArrayList<Observer>();
     }
 
     public User(String userName, String password) {
@@ -34,6 +43,8 @@ public class User extends Observable {
         this.followingUsers = new ArrayList<User>();
         this.followerUsers = new ArrayList<User>();
         this.collections = new ArrayList<Collection>();
+        this.observers = new ArrayList<Observer>();
+
     }
 
 //    @XmlAttribute
@@ -89,6 +100,7 @@ public class User extends Observable {
 
     public void createCollection(Collection collection) {
         this.getCollections().add(collection);
+        this.notifyObservers();
     }
 
     public void deleteCollection(Collection collection) {
@@ -117,5 +129,24 @@ public class User extends Observable {
                 return collection;
         }
         return null;
+    }
+
+
+    @Override
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+
+        for(Observer observer : observers) {
+            observer.update(this.collections);
+        }
     }
 }

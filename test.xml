@@ -4,45 +4,66 @@
         <id>1</id>
         <userName>kemal</userName>
         <password>arda</password>
-        <followingUsers>
-            <id>2</id>
-            <userName>can</userName>
-            <password>pas1</password>
-        </followingUsers>
-        <followingUsers>
-            <id>3</id>
-            <userName>arda</userName>
-            <password>qubit</password>
-        </followingUsers>
+        <FollowingUsers>
+            <FollowingUser>
+                <id>2</id>
+                <userName>can</userName>
+                <password>pas1</password>
+                <FollowingUsers/>
+                <FollowersUsers/>
+            </FollowingUser>
+            <FollowingUser>
+                <id>3</id>
+                <userName>arda</userName>
+                <password>qubit</password>
+                <FollowingUsers/>
+                <FollowersUsers/>
+            </FollowingUser>
+        </FollowingUsers>
+        <FollowersUsers/>
     </User>
     <User>
         <id>4</id>
         <userName>tu2</userName>
         <password>pas2</password>
-        <followingUsers>
-            <id>5</id>
-            <userName>fol3</userName>
-            <password>folpas3</password>
-        </followingUsers>
-        <followingUsers>
-            <id>6</id>
-            <userName>fol4</userName>
-            <password>folpas4</password>
-        </followingUsers>
+        <FollowingUsers>
+            <FollowingUser>
+                <id>5</id>
+                <userName>fol3</userName>
+                <password>folpas3</password>
+                <FollowingUsers/>
+                <FollowersUsers/>
+            </FollowingUser>
+            <FollowingUser>
+                <id>6</id>
+                <userName>fol4</userName>
+                <password>folpas4</password>
+                <FollowingUsers/>
+                <FollowersUsers/>
+            </FollowingUser>
+        </FollowingUsers>
+        <FollowersUsers/>
     </User>
     <User>
         <id>7</id>
         <userName>tu3</userName>
         <password>pas3</password>
-        <followingUsers>
-            <id>8</id>
-            <userName>fol5</userName>
-            <password>folpas5</password>
-        </followingUsers>
-        <followingUsers>
-            <id>9</id>
-            <userName>fol5</userName>
-            <password>folpas5</password>
-        </followingUsers>
+        <FollowingUsers>
+            <FollowingUser>
+                <id>8</id>
+                <userName>fol5</userName>
+                <password>folpas5</password>
+                <FollowingUsers/>
+                <FollowersUsers/>
+            </FollowingUser>
+            <FollowingUser>
+                <id>9</id>
+                <userName>fol5</userName>
+                <password>folpas5</password>
+                <FollowingUsers/>
+                <FollowersUsers/>
+            </FollowingUser>
+        </FollowingUsers>
+        <FollowersUsers/>
     </User>
 </Users>
