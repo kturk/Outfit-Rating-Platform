@@ -1,25 +1,28 @@
 package businesslayer.model;
 
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class User implements IUser {
+@XmlRootElement(name = "User")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class User{
 
     private static int count = 1;
     private int id;
     private String userName;
     private String password;
-    private List<IUser> followingUsers;
-    private List<IUser> followerUsers;
-    private List<ICollection> collections;
+    private List<User> followingUsers;
+    private List<User> followerUsers;
+    private List<Collection> collections;
 
     public User() {
         this.id = count;
         count++;
-        this.followingUsers = new ArrayList<IUser>();
-        this.followerUsers = new ArrayList<IUser>();
-        this.collections = new ArrayList<ICollection>();
+        this.followingUsers = new ArrayList<User>();
+        this.followerUsers = new ArrayList<User>();
+        this.collections = new ArrayList<Collection>();
     }
 
     public User(String userName, String password) {
@@ -27,77 +30,70 @@ public class User implements IUser {
         count++;
         this.userName = userName;
         this.password = password;
-        this.followingUsers = new ArrayList<IUser>();
-        this.followerUsers = new ArrayList<IUser>();
-        this.collections = new ArrayList<ICollection>();
+        this.followingUsers = new ArrayList<User>();
+        this.followerUsers = new ArrayList<User>();
+        this.collections = new ArrayList<Collection>();
     }
 
-    @Override
+//    @XmlAttribute
+    public int getId() { return this.id;}
+
+//    @XmlElement
     public String getUserName() {
         return userName;
     }
 
-    @Override
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
-    @Override
+//    @XmlElement
     public String getPassword() {
         return password;
     }
 
-    @Override
     public void setPassword(String password) {
         this.password = password;
     }
 
-    @Override
-    public List<IUser> getFollowingUsers() {
+//    @XmlElement
+    public List<User> getFollowingUsers() {
         return followingUsers;
     }
 
-    @Override
-    public List<IUser> getFollowerUsers() {
+//    @XmlElement
+    public List<User> getFollowerUsers() {
         return followerUsers;
     }
 
-    @Override
-    public List<ICollection> getCollections() {
+    public List<Collection> getCollections() {
         return collections;
     }
 
-    @Override
-    public void addFollowingUser(IUser user) {
+    public void addFollowingUser(User user) {
         this.getFollowingUsers().add(user);  // TODO direct access or getter?
     }
 
-    @Override
-    public void removeFollowingUser(IUser user) {
+    public void removeFollowingUser(User user) {
         this.getFollowingUsers().remove(user);
     }
 
-    @Override
-    public void addFollowerUser(IUser user) {
+    public void addFollowerUser(User user) {
         this.getFollowerUsers().add(user);
     }
 
-    @Override
-    public void removeFollowerUser(IUser user) {
+    public void removeFollowerUser(User user) {
         this.getFollowerUsers().remove(user);
     }
 
-    @Override
-    public void createCollection(ICollection collection) {
+    public void createCollection(Collection collection) {
         this.getCollections().add(collection);
     }
 
-    @Override
-    public void deleteCollection(ICollection collection) {
+    public void deleteCollection(Collection collection) {
         this.getCollections().remove(collection);
     }
 
-    @Override
     public void addOutfitToCollection(IOutfit outfit, int collectionId) {
         ICollection selectedCollection = getCollectionById(collectionId);
         if (selectedCollection != null)
@@ -106,7 +102,6 @@ public class User implements IUser {
             throw new NoSuchElementException();
     }
 
-    @Override
     public void removeOutfitFromCollection(IOutfit outfit, int collectionId) {
         ICollection selectedCollection = getCollectionById(collectionId);
         if (selectedCollection != null)
