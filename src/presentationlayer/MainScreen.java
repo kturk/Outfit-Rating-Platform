@@ -1,7 +1,5 @@
 package presentationlayer;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
-import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -14,25 +12,22 @@ public class MainScreen extends JFrame{
 
     private JPanel buttonsPanel;
 
-    private JButton collectionsButton;
-    private JButton statisticsButton;
-    private JButton followButton;
+    private JLabel userLabel;
 
+    private JButton userCollectionsButton;
+    private JButton showUsersButton;
+    private JButton showFollowedUsersCollectionsButton;
+    private JButton statisticsButton;
+    private JButton logoutButton;
 
     public MainScreen() {
         super("Main Screen");
         screenInitializer();
 
-//        button.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e){
-//                label.setText("Merhaba " + text.getText());
-//            }
-//        });
-
     }
 
     private void screenInitializer() {
-        setSize(300,250);
+        setSize(400,400);
 //        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -43,8 +38,7 @@ public class MainScreen extends JFrame{
         initializeComponents();
         locateComponents();
         addComponents();
-        buttonListeners();
-        setVisible(true);
+        setLocationRelativeTo(null);
 
     }
 
@@ -61,34 +55,73 @@ public class MainScreen extends JFrame{
     }
 
     private void initializeComponents() {
-        collectionsButton = new JButton("Collections");
+
+        userLabel = new JLabel("User: Caner Tangüler");
+
+        userCollectionsButton = new JButton("My Collections");
+        showUsersButton = new JButton("See Users");
+        showFollowedUsersCollectionsButton = new JButton("Collections Of Followed Users");
         statisticsButton = new JButton("Statistics");
-        followButton = new JButton("Follow");
+        logoutButton = new JButton("Logout");
 
     }
 
     private void locateComponents() {
-        collectionsButton.setBounds(20,20,100,25);
-        statisticsButton.setBounds(20,60,100,25);
-        followButton.setBounds(20,100,100,25);
+
+        userLabel.setBounds(75, 30, 250 ,25);
+
+        userCollectionsButton.setBounds(75,100,250,25);
+        showUsersButton.setBounds(75,140,250,25);
+        showFollowedUsersCollectionsButton.setBounds(75,180,250,25);
+        statisticsButton.setBounds(75,220,250,25);
+        logoutButton.setBounds(75,260,250,25);
 
     }
 
     private void addComponents() {
-        buttonsPanel.add(collectionsButton);
+        buttonsPanel.add(userLabel);
+
+        buttonsPanel.add(userCollectionsButton);
+        buttonsPanel.add(showUsersButton);
+        buttonsPanel.add(showFollowedUsersCollectionsButton);
         buttonsPanel.add(statisticsButton);
-        buttonsPanel.add(followButton);
+        buttonsPanel.add(logoutButton);
     }
 
-    public void buttonListeners() {
-        collectionsButton.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-                System.out.println("action");
-            }
-        });
+    public void renderUsername(String username) {
+        userLabel.setText("User: " + username);
+    }
+
+    public void addUserCollectionsButtonListener(ActionListener actionListener) {
+        userCollectionsButton.addActionListener(actionListener);
+    }
+
+    public void addShowUsersButtonListener(ActionListener actionListener) {
+        showUsersButton.addActionListener(actionListener);
+    }
+
+    public void addShowFollowedUsersCollectionsButtonListener(ActionListener actionListener) {
+        showFollowedUsersCollectionsButton.addActionListener(actionListener);
+    }
+
+    public void addStatisticsButtonListener(ActionListener actionListener) {
+        statisticsButton.addActionListener(actionListener);
+    }
+
+    public void addLogoutButtonListener(ActionListener actionListener) {
+        logoutButton.addActionListener(actionListener);
     }
 
     public void setVisible(Boolean visible){
         setVisible(visible);
     }
+
+    public void closeScreen(){
+        dispose();
+    }
+
+    public void showScreen(){
+        setVisible(true);
+    }
+
 }

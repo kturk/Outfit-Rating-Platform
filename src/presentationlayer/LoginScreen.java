@@ -35,7 +35,7 @@ public class LoginScreen extends JFrame{
         initializeComponents();
         locateComponents();
         addComponents();
-
+        setLocationRelativeTo(null);
 //        setVisible(true);
 
     }
@@ -101,10 +101,8 @@ public class LoginScreen extends JFrame{
         setVisible(visible);
     }
 
-    public void navigateMainScreen(){
+    public void closeScreen(){
         dispose();
-        MainScreen ms = new MainScreen();
-        ms.setVisible(true);
     }
 
     public void showScreen(){

@@ -1,57 +1,75 @@
 package businesslayer.controller;
 
+import businesslayer.Mediator;
+import businesslayer.model.Collection;
 import businesslayer.model.User;
-import presentationlayer.LoginScreen;
+import presentationlayer.MainScreen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
 
-public class LoginController {
+public class MainController {
 
     private User userModel;
-    private LoginScreen loginView;
-    private boolean visible;
+//    private Collection collectionModel;
 
-    public LoginController(User userModel, LoginScreen loginView) {
+    private MainScreen mainView;
+
+    private Mediator mediator;
+
+    public MainController(User userModel, MainScreen mainView, Mediator mediator) {
         this.userModel = userModel;
-        this.loginView = loginView;
-        this.visible = true;
+//        this.collectionModel = collectionModel;
+        this.mainView = mainView;
+        this.mediator = mediator;
 
-        loginView.addButtonListener(new LoginListener());
-        loginView.showScreen();
+        mainView.renderUsername(userModel.getUserName());
+        mainView.addUserCollectionsButtonListener(new UserCollectionListener());
+        mainView.addShowUsersButtonListener(new ShowUsersListener());
+        mainView.addShowFollowedUsersCollectionsButtonListener(new ShowFollowedUsersListener());
+        mainView.addStatisticsButtonListener(new StatisticsListener());
+        mainView.addLogoutButtonListener(new LogoutListener());
 
     }
 
-    public boolean isVisible() {
-        return visible;
+    public void showView() {
+        mainView.showScreen();
     }
 
-    private void setVisible(boolean visible) {
-        this.visible = visible;
+    public void closeView() {
+        mainView.closeScreen();
     }
 
-    private boolean checkCredentials(String username, String password) {
-        if(username.equals("kemal") && password.equals("1234")){
-            return true;
-        }
-        return false;
-    }
-
-
-    class LoginListener implements ActionListener {
+    class UserCollectionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            Map<String, String> credentials = loginView.getCredentials();
-            System.out.println(credentials.get("username")+ credentials.get("password"));
-            boolean validation = checkCredentials(credentials.get("username"), credentials.get("password"));
+            mainView.closeScreen();
+            mediator.navigateToUsersCollectionsScreen(userModel.getCollections());
+        }
+    }
 
-            if(validation){
-                loginView.closeScreen();
-                setVisible(false);
-            }
-            else{
-                loginView.invalidCredentialError("Wrong username or password.");
-            }
+    class ShowUsersListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("ShowUsersScreen");
+        }
+    }
+
+    class ShowFollowedUsersListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("ShowFollowedUsersCollections");
+        }
+    }
+
+    class StatisticsListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("StatisticsScreen");
+        }
+    }
+
+    class LogoutListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            mainView.closeScreen();
+            mediator.navigateToLoginScreen();
         }
     }
 }
