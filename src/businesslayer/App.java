@@ -1,12 +1,9 @@
 package businesslayer;
 import businesslayer.controller.LoginController;
 import businesslayer.model.User;
-<<<<<<< HEAD
 import businesslayer.model.Users;
 import dataaccesslayer.DataHandler;
-=======
 import presentationlayer.LoginScreen;
->>>>>>> 761b92d6b6391b99b28497414e1f15b8251b1f82
 
 import java.util.ArrayList;
 
@@ -21,17 +18,11 @@ public class App {
 
         Mediator mediator = new Mediator();
 
-<<<<<<< HEAD
         Users users = new Users();
 
         User testUser1 = new User("kemal", "arda");
         User follow1 = new User("can", "pas1");
         User follow2 = new User("arda", "qubit");
-=======
-        User testUser1 = new User("kemal", "kemal");
-        User follow1 = new User("can", "can");
-        User follow2 = new User("arda", "arda");
->>>>>>> 761b92d6b6391b99b28497414e1f15b8251b1f82
         testUser1.addFollowingUser(follow1);
         testUser1.addFollowingUser(follow2);
 
@@ -47,10 +38,17 @@ public class App {
         testUser3.addFollowingUser(follow5);
         testUser3.addFollowingUser(follow6);
 
-<<<<<<< HEAD
         users.getUserList().add(testUser1);
         users.getUserList().add(testUser2);
         users.getUserList().add(testUser3);
+
+        ArrayList<User> userList = new ArrayList<>();
+        userList.add(testUser1); userList.add(follow1); userList.add(follow2);
+        userList.add(testUser2); userList.add(follow3); userList.add(follow4);
+        userList.add(testUser3); userList.add(follow5); userList.add(follow6);
+
+        mediator.setUserList(userList);
+        mediator.start();
 
 
         DataHandler dataHandler = new DataHandler("test.xml");
@@ -64,76 +62,6 @@ public class App {
             System.out.println(user.getFollowingUsers().get(0).getId());
         }
 
-
-    }
-=======
-        ArrayList<User> userList = new ArrayList<>();
-        userList.add(testUser1); userList.add(follow1); userList.add(follow2);
-        userList.add(testUser2); userList.add(follow3); userList.add(follow4);
-        userList.add(testUser3); userList.add(follow5); userList.add(follow6);
-
-        mediator.setUserList(userList);
-
-        mediator.start();
-
-
-//        users.getUserList().add(testUser1);
-//        users.getUserList().add(testUser2);
-//        users.getUserList().add(testUser3);
-
-
-//        Users users = new Users();
-//
-//        User testUser1 = new User("kemal", "arda");
-//        User follow1 = new User("can", "pompa");
-//        User follow2 = new User("arda", "qubit");
-//        testUser1.addFollowingUser(follow1);
-//        testUser1.addFollowingUser(follow2);
-//
-//        User testUser2 = new User("tu2", "pas2");
-//        User follow3 = new User("fol3", "folpas3");
-//        User follow4 = new User("fol4", "folpas4");
-//        testUser2.addFollowingUser(follow3);
-//        testUser2.addFollowingUser(follow4);
-//
-//        User testUser3 = new User("tu3", "pas3");
-//        User follow5 = new User("fol5", "folpas5");
-//        User follow6 = new User("fol5", "folpas5");
-//        testUser3.addFollowingUser(follow5);
-//        testUser3.addFollowingUser(follow6);
-//
-//        users.getUserList().add(testUser1);
-//        users.getUserList().add(testUser2);
-//        users.getUserList().add(testUser3);
-//
-//
-//        userMarshaling(users);
-//        userUnMarshaling();
-
     }
 
-//    private static void userUnMarshaling() throws Exception {
-//        JAXBContext jaxbContext = JAXBContext.newInstance(Users.class);
-//        Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-//        Users read_users = (Users) jaxbUnmarshaller.unmarshal( new FileInputStream("test.xml") );
-//
-//        for(User user : read_users.getUserList())
-//        {
-//            System.out.println(user.getId());
-//            System.out.println(user.getUserName());
-//            System.out.println(user.getPassword());
-//            System.out.println(user.getFollowingUsers().get(0).getId());
-//        }
-//    }
-//
-//    private static void userMarshaling(Users users) throws Exception {
-//        JAXBContext contextObj = JAXBContext.newInstance(Users.class);
-//        Marshaller marshallerObj = contextObj.createMarshaller();
-//
-//        marshallerObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-//        marshallerObj.marshal(users, new FileOutputStream("test.xml"));
-//    }
-
-
->>>>>>> 761b92d6b6391b99b28497414e1f15b8251b1f82
 }
