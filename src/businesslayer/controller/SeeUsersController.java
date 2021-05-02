@@ -21,8 +21,8 @@ public class SeeUsersController {
         this.userModel = userModel;
         this.seeUsersView = seeUsersView;
 
-        this.seeUsersView.setUserList(getUsersWithoutCurrentUser());
-        this.seeUsersView.setFollowedUserList(userModel.getFollowerUsers().toArray());
+        this.seeUsersView.setUserList(getUsersNotFollowing().toArray());
+        this.seeUsersView.setFollowedUserList(userModel.getFollowingUsers().toArray());
 
         this.seeUsersView.addFollowButtonListener(new FollowButtonListener());
         this.seeUsersView.addUnfollowButtonListener(new UnfollowButtonListener());
@@ -30,11 +30,17 @@ public class SeeUsersController {
         this.mediator = mediator;
     }
 
-    private Object[] getUsersWithoutCurrentUser() {
+    private List<User> getUsersWithoutCurrentUser() {
         List<User> tempUserList = new ArrayList<User>();
         tempUserList.addAll(this.userModels);
         tempUserList.remove(userModel);
-        return tempUserList.toArray();
+        return tempUserList;
+    }
+
+    private List<User> getUsersNotFollowing() {
+        List<User> tempUserList = getUsersWithoutCurrentUser();
+        tempUserList.removeAll(userModel.getFollowingUsers());
+        return tempUserList;
     }
 
     public void showView() {
@@ -47,18 +53,19 @@ public class SeeUsersController {
 
     class FollowButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-//            seeUsersView.setUserList(getUsersWithoutCurrentUser());
             User selectedUser = (User) seeUsersView.getUserList().getSelectedValue();
-            userModel.addFollowerUser(selectedUser);
+            selectedUser.addFollowerUser(userModel);
+            userModel.addFollowingUser(selectedUser);
 
         }
     }
 
     class UnfollowButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            seeUsersView.setUserList(getUsersWithoutCurrentUser());
+            seeUsersView.setUserList(getUsersWithoutCurrentUser().toArray());
             User selectedUser = (User) seeUsersView.getFollowedUserList().getSelectedValue();
-            userModel.removeFollowerUser(selectedUser);
+            selectedUser.removeFollowerUser(userModel);
+            userModel.removeFollowingUser(selectedUser);
 
         }
     }
