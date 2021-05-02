@@ -1,14 +1,11 @@
 package businesslayer;
 import businesslayer.controller.LoginController;
-<<<<<<< HEAD
 import businesslayer.model.*;
-=======
 import businesslayer.model.IOutfit;
 import businesslayer.model.Outfit;
 import businesslayer.model.User;
 import businesslayer.model.Users;
 import com.google.gson.internal.LinkedTreeMap;
->>>>>>> f66cacc39d35390ec3ec71b76e579db8a450c19e
 import dataaccesslayer.DataHandler;
 import presentationlayer.LoginScreen;
 
