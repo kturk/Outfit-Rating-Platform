@@ -21,6 +21,10 @@
             </FollowingUser>
         </FollowingUsers>
         <FollowersUsers/>
+        <collections>
+            <collectionName>hnm</collectionName>
+            <id>1</id>
+        </collections>
     </User>
     <User>
         <id>4</id>

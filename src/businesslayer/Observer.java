@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface Observer {
 
-    public void update(List<Collection> list);
+    public void update(List<?> list);
 }

@@ -5,6 +5,9 @@ import businesslayer.model.Collection;
 import businesslayer.model.User;
 import presentationlayer.UserCollectionsScreen;
 
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -20,10 +23,11 @@ public class UserCollectionsController {
         this.userModel = userModel;
         this.userCollectionsView = userCollectionsView;
         this.mediator = mediator;
-        userModel.createCollection(new Collection("ABC"));
-//        aa();
+
+        this.userCollectionsView.setList(userModel.getCollections().toArray());
 
         userCollectionsView.addNewCollectionListener(new AddCollectionListener());
+        userCollectionsView.addSelectListener(new SelectionListener());
 
     }
 
@@ -34,28 +38,6 @@ public class UserCollectionsController {
     public void closeView() {
         userCollectionsView.closeScreen();
     }
-
-    private Collection[] toArray(List<Collection> list) {
-        System.out.println(list);
-        Collection[] item = new Collection[list.size()];
-        for(int i = 0; i < list.size(); i++)
-            item[i] = list.get(i);
-        return item;
-    }
-
-//    private Collection[] aa(){
-////        ArrayList<String> abc = new ArrayList<>();
-////        abc.add("DENEME1");
-////        abc.add("DENEME22");
-////        abc.add("DENEME33");
-////        abc.add("DENEME43");
-////        abc.add("DENEME5");
-////        System.out.println(abc);
-//        Collection[] x = toArray(collectionModels);
-//        System.out.println("x" + x);
-//        userCollectionsView.setList(x);
-//        return x;
-//    }
 
     private void addNewCollection(String collectionName){
         this.userModel.createCollection(new Collection(collectionName));
@@ -72,6 +54,15 @@ public class UserCollectionsController {
         public void actionPerformed(ActionEvent e) {
             String collectionName = userCollectionsView.getNewCollectionField().getText();
             addNewCollection(collectionName);
+        }
+    }
+
+    class SelectionListener implements ListSelectionListener {
+        public void valueChanged(ListSelectionEvent e) {
+            JList source = (JList)e.getSource();
+            Collection s = (Collection) source.getSelectedValue();
+            System.out.println(s.getId());
+
         }
     }
 }

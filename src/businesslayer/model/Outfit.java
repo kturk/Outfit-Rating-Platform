@@ -151,4 +151,15 @@ public class Outfit implements IOutfit {
     public void removeComment(String comment) {
         this.getComments().remove(comment);  // TODO Check the contains logic here?
     }
+
+    @Override
+    public String toString() {
+        return "Outfit{" +
+                "brandName='" + brandName + '\'' +
+                ", clothingType=" + clothingType +
+                ", gender=" + gender +
+                ", size=" + size +
+                ", color=" + color +
+                '}';
+    }
 }

@@ -1,5 +1,6 @@
 package businesslayer;
 import businesslayer.controller.LoginController;
+import businesslayer.model.*;
 import businesslayer.model.IOutfit;
 import businesslayer.model.Outfit;
 import businesslayer.model.User;
@@ -25,6 +26,7 @@ public class App {
         Users users = new Users();
 
         User testUser1 = new User("kemal", "arda");
+        testUser1.createCollection(new Collection("hnm"));
         User follow1 = new User("can", "pas1");
         User follow2 = new User("arda", "qubit");
         testUser1.addFollowingUser(follow1);
