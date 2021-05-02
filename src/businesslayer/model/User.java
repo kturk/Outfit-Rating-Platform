@@ -84,10 +84,12 @@ public class User implements Observable{
 
     public void addFollowingUser(User user) {
         this.getFollowingUsers().add(user);  // TODO direct access or getter?
+        this.notifyObservers();
     }
 
     public void removeFollowingUser(User user) {
         this.getFollowingUsers().remove(user);
+        this.notifyObservers();
     }
 
     public void addFollowerUser(User user) {
@@ -151,7 +153,7 @@ public class User implements Observable{
                 observer.update(this.getCollections());
             }
             else if(observer.getClass().getSimpleName().equals("SeeUsersScreen")){
-                observer.update(this.getFollowerUsers());
+                observer.update(this.getFollowingUsers());
             }
 
         }

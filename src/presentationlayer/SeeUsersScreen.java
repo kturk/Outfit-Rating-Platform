@@ -55,7 +55,7 @@ public class SeeUsersScreen extends JFrame implements Observer{
 
     private void initializeComponents() {
         usersLabel = new JLabel("Users");
-        followedUsersLabel = new JLabel("Followed Users");
+        followedUsersLabel = new JLabel("Following Users");
         userList = new JList();
         followedUserList = new JList();
         followButton = new JButton("Follow");
