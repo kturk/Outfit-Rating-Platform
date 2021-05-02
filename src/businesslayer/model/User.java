@@ -92,10 +92,12 @@ public class User implements Observable{
 
     public void addFollowerUser(User user) {
         this.getFollowerUsers().add(user);
+        this.notifyObservers();
     }
 
     public void removeFollowerUser(User user) {
         this.getFollowerUsers().remove(user);
+        this.notifyObservers();
     }
 
     public void createCollection(Collection collection) {
@@ -144,9 +146,19 @@ public class User implements Observable{
 
     @Override
     public void notifyObservers() {
-
         for(Observer observer : observers) {
-            observer.update(this.collections);
+            if(observer.getClass().getSimpleName().equals("UserCollectionsScreen")){
+                observer.update(this.getCollections());
+            }
+            else if(observer.getClass().getSimpleName().equals("SeeUsersScreen")){
+                observer.update(this.getFollowerUsers());
+            }
+
         }
+    }
+
+    @Override
+    public String toString() {
+        return "User: " + userName;
     }
 }

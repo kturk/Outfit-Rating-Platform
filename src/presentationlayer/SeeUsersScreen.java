@@ -1,28 +1,31 @@
 package presentationlayer;
 
 import businesslayer.Observer;
-import businesslayer.model.Collection;
-import businesslayer.model.User;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 // All users without current user line by line
 // Follow or unf buttons
-public class SeeUsersScreen extends JFrame {
+public class SeeUsersScreen extends JFrame implements Observer{
 
     private JPanel panel;
-    private JLabel userLabel;
-    private JList<String> userList;
+    private JLabel usersLabel;
+    private JLabel followedUsersLabel;
 
+    private JList userList;
+    private JList followedUserList;
+    private JButton followButton;
+    private JButton unfollowButton;
 
-    public SeeUsersScreen(List<User> users, User user) {
+    public SeeUsersScreen() {
         super("User List: ");
-        screenInitializer(users, user);
+        screenInitializer();
     }
 
-    private void screenInitializer(List<User> users, User user) {
+    private void screenInitializer() {
         setSize(400,400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -30,7 +33,7 @@ public class SeeUsersScreen extends JFrame {
         locatePanels();
         addPanels();
 
-        initializeComponents(users, user);
+        initializeComponents();
         locateComponents();
         addComponents();
         setLocationRelativeTo(null);
@@ -50,33 +53,60 @@ public class SeeUsersScreen extends JFrame {
         add(panel);
     }
 
-    private void initializeComponents(List<User> users, User user) {
-        userLabel = new JLabel("Current user: " + user.getUserName().toUpperCase());
-        userList = new JList<String>(toArray(users, user));
+    private void initializeComponents() {
+        usersLabel = new JLabel("Users");
+        followedUsersLabel = new JLabel("Followed Users");
+        userList = new JList();
+        followedUserList = new JList();
+        followButton = new JButton("Follow");
+        unfollowButton = new JButton("Unfollow");
     }
 
     private void locateComponents() {
-        userLabel.setBounds(10, 10, 250 ,25);
-        userList.setBounds(10,40, 380,250);
+
+        usersLabel.setBounds(50,10,110,25);
+        usersLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        followedUsersLabel.setBounds(240,10,110,25);
+        followedUsersLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        userList.setBounds(30,40, 150,250);
+        followedUserList.setBounds(220,40,150,250);
+        unfollowButton.setBounds(240,300,110, 25);
+        followButton.setBounds(50,300,110,25);
     }
 
     private void addComponents() {
-        panel.add(userLabel);
+        panel.add(usersLabel);
+        panel.add(followedUsersLabel);
         panel.add(userList);
+        panel.add(followedUserList);
+        panel.add(followButton);
+        panel.add(unfollowButton);
     }
 
-    public void setList(String[] itemList) {
+    public void setUserList(Object[] itemList) {
         userList.setListData(itemList);
-        userList.setBackground(Color.gray);
     }
 
-    private String[] toArray(List<User> users, User user) {
-        System.out.println(users);
-        String[] item = new String[users.size()];
-        for(int i = 0; i < users.size(); i++)
-            if (!users.get(i).equals(user))
-                item[i] = users.get(i).getUserName();
-        return item;
+    public void setFollowedUserList(Object[] itemList) {
+        followedUserList.setListData(itemList);
+    }
+
+    public JList getUserList() {
+        return userList;
+    }
+
+    public JList getFollowedUserList() {
+        return followedUserList;
+    }
+
+
+
+    public void addFollowButtonListener(ActionListener actionListener) {
+        followButton.addActionListener(actionListener);
+    }
+
+    public void addUnfollowButtonListener(ActionListener actionListener) {
+        unfollowButton.addActionListener(actionListener);
     }
 
     public void showScreen(){
@@ -87,5 +117,18 @@ public class SeeUsersScreen extends JFrame {
         dispose();
     }
 
+    @Override
+    public void update(List<?> list) {
 
+        ListModel listModel = userList.getModel();
+        List<Object> newUserList = new ArrayList<Object>();
+        for(int i=0; i<listModel.getSize(); i++){
+            Object currentElement = listModel.getElementAt(i);
+            if(!list.contains(currentElement)){
+                newUserList.add(currentElement);
+            }
+        }
+        setUserList(newUserList.toArray());
+        setFollowedUserList(list.toArray());
+    }
 }

@@ -65,16 +65,16 @@ public class Mediator {
     }
 
     public void navigateToSeeUsersScreen(User loggedInUser) {
-//        SeeUsersScreen screen = new SeeUsersScreen();
-        // TODO no need to attach cuz no data change?
-        seeUsersController = new SeeUsersController(userList, loggedInUser, this);
+        SeeUsersScreen screen = new SeeUsersScreen();
+        loggedInUser.attach(screen);
+        seeUsersController = new SeeUsersController(userList, loggedInUser, screen,this);
         seeUsersController.showView();
     }
 
     public void navigateToStatisticsScreen(User loggedInUser) {
 //        SeeUsersScreen screen = new SeeUsersScreen();
         // TODO no need to attach cuz no data change?
-        statisticsController = new StatisticsController(userList, outfitList, loggedInUser, this);
+        statisticsController = new StatisticsController(userList, outfitList, this);
         statisticsController.showView();
     }
 }

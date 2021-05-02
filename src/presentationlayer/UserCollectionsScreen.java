@@ -9,6 +9,7 @@ import businesslayer.Observer;
 import businesslayer.model.Collection;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
@@ -24,6 +25,7 @@ public class UserCollectionsScreen extends JFrame implements Observer {
     private JTextField newCollectionField;
     private JLabel newCollectionLabel;
     private JButton addNewCollectionButton;
+    private DefaultListModel model = new DefaultListModel();
 
     public UserCollectionsScreen() {
         super("My Collections");
@@ -59,26 +61,7 @@ public class UserCollectionsScreen extends JFrame implements Observer {
         add(panel);
     }
 
-    public String[] toArray(ArrayList<String> list) {
-        String[] it = new String[list.size()];
-        for(int i = 0; i < list.size(); i++)
-            it[i] = list.get(i);
-        return it;
-    }
-
     private void initializeComponents() {
-//        ArrayList<String> abc = new ArrayList<>();
-//        abc.add("DENEME1");
-//        abc.add("DENEME2");
-//        abc.add("DENEME3");
-//        abc.add("DENEME4");
-//        abc.add("DENEME5");
-//        System.out.println(abc);
-//        String[] x = toArray(abc);
-//        System.out.println(x);
-//
-//        collectionList = new JList(x);
-//        collectionList.setBackground(Color.gray);
 
         collectionList = new JList();
         userLabel = new JLabel("User: Caner Tangüler");
@@ -118,7 +101,21 @@ public class UserCollectionsScreen extends JFrame implements Observer {
         collectionList.setListData(itemList);
         collectionList.setBackground(Color.gray);
 
+//        for(int i=0; i<itemList.length; i++) {
+//            model.addElement(itemList[i]);
+//        }
+//        collectionList.setModel(model.addElement(addNewCollectionButton.get));
+//        System.out.println(model);
     }
+
+    public JList getCollectionList() {
+        return collectionList;
+    }
+
+    public void addSelectListener(ListSelectionListener listSelectionListener) {
+        collectionList.addListSelectionListener(listSelectionListener);
+    }
+
     public void closeScreen(){
         dispose();
     }
@@ -127,17 +124,9 @@ public class UserCollectionsScreen extends JFrame implements Observer {
         setVisible(true);
     }
 
-    private Collection[] toArray(List<Collection> list) {
-        System.out.println(list);
-        Collection[] item = new Collection[list.size()];
-        for(int i = 0; i < list.size(); i++)
-            item[i] = list.get(i);
-        return item;
-    }
-
     @Override
-    public void update(List<Collection> collections) {
-        setList(toArray(collections));
+    public void update(List<?> collections) {
+        setList(collections.toArray());
     }
 
 
