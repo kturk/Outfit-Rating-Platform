@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "brandName": "Brand1",
+    "clothingType": "CASUAL",
+    "gender": "MALE",
+    "size": "L",
+    "color": "BLACK",
+    "numberOfLikes": 10,
+    "numberOfDislikes": 5,
+    "comments": []
+  },
+  {
+    "id": 2,
+    "brandName": "Brand2",
+    "clothingType": "SPORT",
+    "gender": "FEMALE",
+    "size": "XL",
+    "color": "YELLOW",
+    "numberOfLikes": 2,
+    "numberOfDislikes": 16,
+    "comments": []
+  },
+  {
+    "id": 3,
+    "brandName": "Brand3",
+    "clothingType": "ELEGANT",
+    "gender": "PREFERNOTTOSAY",
+    "size": "XXS",
+    "color": "ORANGE",
+    "numberOfLikes": 3,
+    "numberOfDislikes": 6,
+    "comments": []
+  }
+]

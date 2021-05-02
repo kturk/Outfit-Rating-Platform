@@ -4,6 +4,7 @@ import businesslayer.model.IOutfit;
 import businesslayer.model.Outfit;
 import businesslayer.model.User;
 import businesslayer.model.Users;
+import com.google.gson.internal.LinkedTreeMap;
 import dataaccesslayer.DataHandler;
 import presentationlayer.LoginScreen;
 
@@ -64,17 +65,25 @@ public class App {
                 IOutfit.Color.YELLOW);
         outfit2.setNumberOfLikes(2);
         outfit2.setNumberOfDislikes(16);
+        Outfit outfit3 = new Outfit("Brand3",
+                IOutfit.ClothingType.ELEGANT,
+                IOutfit.Gender.PREFERNOTTOSAY,
+                IOutfit.Size.XXS,
+                IOutfit.Color.ORANGE);
+        outfit3.setNumberOfLikes(3);
+        outfit3.setNumberOfDislikes(6);
 
         List<Outfit> outfitList = new ArrayList<>();
-        outfitList.add(outfit1); outfitList.add(outfit2);
+        outfitList.add(outfit1); outfitList.add(outfit2); outfitList.add(outfit3);
 
         mediator.setUserList(userList);
         mediator.setOutfitList(outfitList);
         mediator.start();
 
 
-        DataHandler dataHandler = new DataHandler("test.xml");
+        DataHandler dataHandler = new DataHandler("testXML.xml", "testJson.json");
         dataHandler.writeXML(users);
+        dataHandler.writeJson(outfitList);
 
         Users read_users = dataHandler.readXML();
         for (User user: read_users.getUserList()){
@@ -82,6 +91,13 @@ public class App {
             System.out.println(user.getUserName());
             System.out.println(user.getPassword());
             System.out.println(user.getFollowingUsers().get(0).getId());
+        }
+
+        List<Outfit> read_outfits = dataHandler.readJson();
+        for (Outfit outfit : read_outfits){
+            System.out.println(outfit.getBrandName());
+            System.out.println(outfit.getColor());
+            System.out.println(outfit.getClass().getSimpleName());
         }
 
     }
