@@ -1,13 +1,11 @@
 package businesslayer.controller;
 
 import businesslayer.Mediator;
-import businesslayer.model.Collection;
 import businesslayer.model.User;
 import presentationlayer.MainScreen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
 
 public class MainController {
 
@@ -19,14 +17,14 @@ public class MainController {
     private Mediator mediator;
 
     public MainController(User userModel, MainScreen mainView, Mediator mediator) {
-        this.userModel = userModel;
+        this.userModel = userModel;  // Logged User
 //        this.collectionModel = collectionModel;
         this.mainView = mainView;
         this.mediator = mediator;
 
         mainView.renderUsername(userModel.getUserName());
         mainView.addUserCollectionsButtonListener(new UserCollectionListener());
-        mainView.addShowUsersButtonListener(new ShowUsersListener());
+        mainView.addSeeUsersButtonListener(new SeeUsersListener());
         mainView.addShowFollowedUsersCollectionsButtonListener(new ShowFollowedUsersListener());
         mainView.addStatisticsButtonListener(new StatisticsListener());
         mainView.addLogoutButtonListener(new LogoutListener());
@@ -48,9 +46,11 @@ public class MainController {
         }
     }
 
-    class ShowUsersListener implements ActionListener {
+    class SeeUsersListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             System.out.println("ShowUsersScreen");
+            mainView.closeScreen();
+            mediator.navigateToSeeUsersScreen(userModel);
         }
     }
 
@@ -63,6 +63,8 @@ public class MainController {
     class StatisticsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             System.out.println("StatisticsScreen");
+            mainView.closeScreen();
+            mediator.navigateToStatisticsScreen(userModel);
         }
     }
 

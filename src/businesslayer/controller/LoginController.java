@@ -32,9 +32,9 @@ public class LoginController {
     }
 
     private User checkCredentials(String username, String password) {
-        for(User userModal : userModels){
-            if(userModal.getUserName().equals(username) && userModal.getPassword().equals(password)){
-                return userModal;
+        for(User userModel : userModels){
+            if(userModel.getUserName().equals(username) && userModel.getPassword().equals(password)){
+                return userModel;
             }
         }
         return null;

@@ -1,11 +1,14 @@
 package businesslayer;
 import businesslayer.controller.LoginController;
+import businesslayer.model.IOutfit;
+import businesslayer.model.Outfit;
 import businesslayer.model.User;
 import businesslayer.model.Users;
 import dataaccesslayer.DataHandler;
 import presentationlayer.LoginScreen;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class App {
 
@@ -36,18 +39,37 @@ public class App {
         User follow5 = new User("fol5", "folpas5");
         User follow6 = new User("fol5", "folpas5");
         testUser3.addFollowingUser(follow5);
-        testUser3.addFollowingUser(follow6);
+        testUser3.addFollowerUser(follow6);
 
         users.getUserList().add(testUser1);
         users.getUserList().add(testUser2);
         users.getUserList().add(testUser3);
 
-        ArrayList<User> userList = new ArrayList<>();
+        List<User> userList = new ArrayList<>();
         userList.add(testUser1); userList.add(follow1); userList.add(follow2);
         userList.add(testUser2); userList.add(follow3); userList.add(follow4);
         userList.add(testUser3); userList.add(follow5); userList.add(follow6);
 
+        Outfit outfit1 = new Outfit("Brand1",
+                IOutfit.ClothingType.CASUAL,
+                IOutfit.Gender.MALE,
+                IOutfit.Size.L,
+                IOutfit.Color.BLACK);
+        outfit1.setNumberOfLikes(10);
+        outfit1.setNumberOfDislikes(5);
+        Outfit outfit2 = new Outfit("Brand2",
+                IOutfit.ClothingType.SPORT,
+                IOutfit.Gender.FEMALE,
+                IOutfit.Size.XL,
+                IOutfit.Color.YELLOW);
+        outfit2.setNumberOfLikes(2);
+        outfit2.setNumberOfDislikes(16);
+
+        List<Outfit> outfitList = new ArrayList<>();
+        outfitList.add(outfit1); outfitList.add(outfit2);
+
         mediator.setUserList(userList);
+        mediator.setOutfitList(outfitList);
         mediator.start();
 
 

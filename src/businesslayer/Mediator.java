@@ -1,13 +1,13 @@
 package businesslayer;
 
-import businesslayer.controller.LoginController;
-import businesslayer.controller.MainController;
-import businesslayer.controller.UserCollectionsController;
+import businesslayer.controller.*;
 import businesslayer.model.Collection;
+import businesslayer.model.IOutfit;
 import businesslayer.model.Outfit;
 import businesslayer.model.User;
 import presentationlayer.LoginScreen;
 import presentationlayer.MainScreen;
+import presentationlayer.SeeUsersScreen;
 import presentationlayer.UserCollectionsScreen;
 
 import java.util.ArrayList;
@@ -21,21 +21,25 @@ public class Mediator {
     private MainController mainController;
 //    private MainScreen mainView;
 
-    private UserCollectionsController userCollectionsController;
+    private UserCollectionsController userCollectionsController;  // TODO shouldn't this be a local variable?
+    private SeeUsersController seeUsersController;
+    private StatisticsController statisticsController;
 
-    private ArrayList<User> userList;
-    private ArrayList<Outfit> outfitList;
+    private List<User> userList;
+    private List<Outfit> outfitList;
 
     public Mediator() {
         this.userList = new ArrayList<User>();
         this.outfitList = new ArrayList<Outfit>();
     }
 
-    public void setUserList(ArrayList<User> userList) {
+
+
+    public void setUserList(List<User> userList) {
         this.userList = userList;
     }
 
-    public void setOutfitList(ArrayList<Outfit> outfitList) {
+    public void setOutfitList(List<Outfit> outfitList) {
         this.outfitList = outfitList;
     }
 
@@ -53,10 +57,24 @@ public class Mediator {
         mainController.showView();
     }
 
-    public void navigateToUsersCollectionsScreen(User loggedInUser){
+    public void navigateToUsersCollectionsScreen(User loggedInUser) {
         UserCollectionsScreen screen = new UserCollectionsScreen();
-        loggedInUser.attach( screen);
+        loggedInUser.attach(screen);
         userCollectionsController = new UserCollectionsController(loggedInUser, screen, this);
         userCollectionsController.showView();
+    }
+
+    public void navigateToSeeUsersScreen(User loggedInUser) {
+//        SeeUsersScreen screen = new SeeUsersScreen();
+        // TODO no need to attach cuz no data change?
+        seeUsersController = new SeeUsersController(userList, loggedInUser, this);
+        seeUsersController.showView();
+    }
+
+    public void navigateToStatisticsScreen(User loggedInUser) {
+//        SeeUsersScreen screen = new SeeUsersScreen();
+        // TODO no need to attach cuz no data change?
+        statisticsController = new StatisticsController(userList, outfitList, loggedInUser, this);
+        statisticsController.showView();
     }
 }

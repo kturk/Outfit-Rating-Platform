@@ -56,14 +56,15 @@
                 <FollowingUsers/>
                 <FollowersUsers/>
             </FollowingUser>
-            <FollowingUser>
+        </FollowingUsers>
+        <FollowersUsers>
+            <FollowerUser>
                 <id>9</id>
                 <userName>fol5</userName>
                 <password>folpas5</password>
                 <FollowingUsers/>
                 <FollowersUsers/>
-            </FollowingUser>
-        </FollowingUsers>
-        <FollowersUsers/>
+            </FollowerUser>
+        </FollowersUsers>
     </User>
 </Users>

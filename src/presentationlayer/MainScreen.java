@@ -96,7 +96,7 @@ public class MainScreen extends JFrame{
         userCollectionsButton.addActionListener(actionListener);
     }
 
-    public void addShowUsersButtonListener(ActionListener actionListener) {
+    public void addSeeUsersButtonListener(ActionListener actionListener) {
         showUsersButton.addActionListener(actionListener);
     }
 

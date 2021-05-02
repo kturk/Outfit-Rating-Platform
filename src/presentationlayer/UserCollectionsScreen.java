@@ -21,7 +21,6 @@ public class UserCollectionsScreen extends JFrame implements Observer {
     private JPanel panel;
     private JLabel userLabel;
     private JList collectionList;
-
     private JTextField newCollectionField;
     private JLabel newCollectionLabel;
     private JButton addNewCollectionButton;
