@@ -60,7 +60,16 @@ public class Collection implements ICollection {
 
     @Override
     public String toString() {
-        return "Collection" + id + ": " + collectionName + getNumOfOutfits() + "Outfits";
+        System.out.println("len" + collectionName.length());
+        System.out.println("lenx" + (20 - collectionName.length()));
+
+        StringBuilder stringBuilder = new StringBuilder();
+        System.out.println(collectionName.length());
+        for(int i=0; i<30-collectionName.length(); i++){
+            stringBuilder.append(" ");
+        }
+        String splitter = stringBuilder.toString();
+        return "Collection " + id + ":   " + collectionName + splitter + getNumOfOutfits() + " Outfits";
 
     }
 

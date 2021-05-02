@@ -25,6 +25,8 @@ public class UserCollectionsScreen extends JFrame implements Observer {
     private JTextField newCollectionField;
     private JLabel newCollectionLabel;
     private JButton addNewCollectionButton;
+    private JButton showDetailsButton;
+
     private DefaultListModel model = new DefaultListModel();
 
     public UserCollectionsScreen() {
@@ -49,7 +51,6 @@ public class UserCollectionsScreen extends JFrame implements Observer {
 
     private void initializePanels() {
         panel = new JPanel();
-        panel.setBackground(Color.BLUE);
     }
 
     private void locatePanels() {
@@ -68,24 +69,26 @@ public class UserCollectionsScreen extends JFrame implements Observer {
         newCollectionLabel = new JLabel("New Collection:");
         newCollectionField = new JTextField();
         addNewCollectionButton = new JButton("Add");
+        showDetailsButton = new JButton("Show");
 
     }
 
     private void locateComponents() {
-        userLabel.setBounds(100, 100, 250 ,25);
-        collectionList.setBounds(10,10, 300,120);
-        newCollectionLabel.setBounds(30,300,100,25);
-        newCollectionField.setBounds(130,300,150,25);
-        addNewCollectionButton.setBounds(300,300, 80, 25);
+        collectionList.setBounds(40,15, 320,220);
+        newCollectionLabel.setBounds(10,300,100,25);
+        newCollectionField.setBounds(125,300,150,25);
+        addNewCollectionButton.setBounds(290,300, 80, 25);
+        showDetailsButton.setBounds(160,250, 80, 25);
+
 
     }
 
     private void addComponents() {
-        panel.add(userLabel);
         panel.add(collectionList);
         panel.add(newCollectionField);
         panel.add(newCollectionLabel);
         panel.add(addNewCollectionButton);
+        panel.add(showDetailsButton);
 
     }
 
@@ -101,11 +104,6 @@ public class UserCollectionsScreen extends JFrame implements Observer {
         collectionList.setListData(itemList);
         collectionList.setBackground(Color.gray);
 
-//        for(int i=0; i<itemList.length; i++) {
-//            model.addElement(itemList[i]);
-//        }
-//        collectionList.setModel(model.addElement(addNewCollectionButton.get));
-//        System.out.println(model);
     }
 
     public JList getCollectionList() {
