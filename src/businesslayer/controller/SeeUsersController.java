@@ -56,6 +56,7 @@ public class SeeUsersController {
             User selectedUser = (User) seeUsersView.getUserList().getSelectedValue();
             selectedUser.addFollowerUser(userModel);
             userModel.addFollowingUser(selectedUser);
+            mediator.writeXML();
 
         }
     }
@@ -66,7 +67,7 @@ public class SeeUsersController {
             User selectedUser = (User) seeUsersView.getFollowedUserList().getSelectedValue();
             selectedUser.removeFollowerUser(userModel);
             userModel.removeFollowingUser(selectedUser);
-
+            mediator.writeXML();
         }
     }
 

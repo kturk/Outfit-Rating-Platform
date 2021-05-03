@@ -21,7 +21,6 @@ public class App {
 //        MainScreen mainScreen = new MainScreen();
 //        LoginController loginController = new LoginController(null, loginScreen);
 
-        Mediator mediator = new Mediator();
 
         Users users = new Users();
 
@@ -80,29 +79,33 @@ public class App {
         List<Outfit> outfitList = new ArrayList<>();
         outfitList.add(outfit1); outfitList.add(outfit2); outfitList.add(outfit3);
 
+        DataHandler dataHandler = new DataHandler("testXML.xml", "testJson.json");
+        dataHandler.writeXML(users);
+
+        Mediator mediator = new Mediator();
+
         mediator.setUserList(userList);
         mediator.setOutfitList(outfitList);
         mediator.start();
 
 
-        DataHandler dataHandler = new DataHandler("testXML.xml", "testJson.json");
-        dataHandler.writeXML(users);
-        dataHandler.writeJson(outfitList);
 
-        Users read_users = dataHandler.readXML();
-        for (User user: read_users.getUserList()){
-            System.out.println(user.getId());
-            System.out.println(user.getUserName());
-            System.out.println(user.getPassword());
-            System.out.println(user.getFollowingUsers().get(0).getId());
-        }
+//        dataHandler.writeJson(outfitList);
 
-        List<Outfit> read_outfits = dataHandler.readJson();
-        for (Outfit outfit : read_outfits){
-            System.out.println(outfit.getBrandName());
-            System.out.println(outfit.getColor());
-            System.out.println(outfit.getClass().getSimpleName());
-        }
+//        Users read_users = dataHandler.readXML();
+//        for (User user: read_users.getUserList()){
+//            System.out.println(user.getId());
+//            System.out.println(user.getUserName());
+//            System.out.println(user.getPassword());
+//            System.out.println(user.getFollowingUsers().get(0).getId());
+//        }
+//
+//        List<Outfit> read_outfits = dataHandler.readJson();
+//        for (Outfit outfit : read_outfits){
+//            System.out.println(outfit.getBrandName());
+//            System.out.println(outfit.getColor());
+//            System.out.println(outfit.getClass().getSimpleName());
+//        }
 
     }
 

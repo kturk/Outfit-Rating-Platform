@@ -55,6 +55,7 @@ public class UserCollectionsController {
         public void actionPerformed(ActionEvent e) {
             String collectionName = userCollectionsView.getNewCollectionField().getText();
             addNewCollection(collectionName);
+            mediator.writeXML();
         }
     }
 

@@ -4,6 +4,8 @@ import businesslayer.controller.*;
 import businesslayer.model.Collection;
 import businesslayer.model.Outfit;
 import businesslayer.model.User;
+import businesslayer.model.Users;
+import dataaccesslayer.DataHandler;
 import presentationlayer.*;
 
 import java.util.ArrayList;
@@ -30,13 +32,14 @@ public class Mediator {
     private List<Outfit> outfitList;
 
     private User loggedUser;
+    private DataHandler dataHandler;
 
     public Mediator() {
         this.userList = new ArrayList<User>();
         this.outfitList = new ArrayList<Outfit>();
+        this.dataHandler = new DataHandler("testXML.xml", "testJson.json");
+        this.readXML();
     }
-
-
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
@@ -44,6 +47,17 @@ public class Mediator {
 
     public void setOutfitList(List<Outfit> outfitList) {
         this.outfitList = outfitList;
+    }
+
+    public void readXML() {
+        Users users = dataHandler.readXML();
+        this.userList = users.getUserList();
+    }
+
+    public void writeXML() {
+        Users users = new Users();
+        users.setUserList(this.userList);
+        this.dataHandler.writeXML(users);
     }
 
     public void start(){

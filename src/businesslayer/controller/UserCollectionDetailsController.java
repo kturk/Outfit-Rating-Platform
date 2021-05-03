@@ -62,6 +62,7 @@ public class UserCollectionDetailsController {
         public void actionPerformed(ActionEvent e) {
             Outfit selectedOutfit = (Outfit) collectionDetailView.getOutfitList().getSelectedValue();
             collectionModel.addOutfit(selectedOutfit.getId());
+            mediator.writeXML();
         }
     }
 
@@ -70,6 +71,7 @@ public class UserCollectionDetailsController {
             collectionDetailView.setOutfitList(outfitModels.toArray());
             Outfit selectedOutfit = (Outfit) collectionDetailView.getAddedOutfitList().getSelectedValue();
             collectionModel.removeOutfit(selectedOutfit.getId());
+            mediator.writeXML();
         }
     }
 

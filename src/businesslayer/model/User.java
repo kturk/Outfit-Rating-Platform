@@ -12,13 +12,17 @@ public class User implements Observable{
 
     private static int count = 1;
     private int id;
+    @XmlID
+    private String stringId;
     private String userName;
     private String password;
     @XmlElementWrapper(name="FollowingUsers")
     @XmlElement(name = "FollowingUser")
+    @XmlIDREF
     private List<User> followingUsers;
     @XmlElementWrapper(name="FollowersUsers")
     @XmlElement(name = "FollowerUser")
+    @XmlIDREF
     private List<User> followerUsers;
     private List<Collection> collections;
     @XmlTransient
@@ -31,6 +35,7 @@ public class User implements Observable{
     public User() {
         this.id = count;
         count++;
+        this.stringId = Integer.toString(id);
         this.followingUsers = new ArrayList<User>();
         this.followerUsers = new ArrayList<User>();
         this.collections = new ArrayList<Collection>();
@@ -42,6 +47,7 @@ public class User implements Observable{
     public User(String userName, String password) {
         this.id = count;
         count++;
+        this.stringId = Integer.toString(id);
         this.userName = userName;
         this.password = password;
         this.followingUsers = new ArrayList<User>();
@@ -220,6 +226,7 @@ public class User implements Observable{
 
     @Override
     public String toString() {
-        return "User: " + userName;
+        return "ID:" + stringId +
+                "User: " + userName;
     }
 }
