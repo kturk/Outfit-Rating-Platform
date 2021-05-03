@@ -118,8 +118,6 @@ public class UserCollectionsScreen extends JFrame implements Observer {
 
     public void setList(Object[] itemList) {
         collectionList.setListData(itemList);
-        collectionList.setBackground(Color.gray);
-
     }
 
     public JList getCollectionList() {

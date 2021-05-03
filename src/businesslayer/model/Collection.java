@@ -14,15 +14,11 @@ public class Collection implements ICollection, Observable {
     private List<Integer> outfitIds; // TODO integer or outfit itself?
     private List<Observer> observers;
 
-    private List<Outfit> outfits;
-
     public Collection() {
         this.id = count;
         count++;
         this.outfitIds = new ArrayList<Integer>();
         this.observers = new ArrayList<Observer>();
-
-        this.outfits = new ArrayList<Outfit>();
     }
 
     public Collection(String collectionName) {
@@ -31,8 +27,6 @@ public class Collection implements ICollection, Observable {
         this.collectionName = collectionName;
         this.outfitIds = new ArrayList<Integer>();
         this.observers = new ArrayList<Observer>();
-
-        this.outfits = new ArrayList<Outfit>();
 
     }
 
@@ -61,10 +55,6 @@ public class Collection implements ICollection, Observable {
         return outfitIds;
     }
 
-    public List<Outfit> getOutfits() {
-        return outfits;
-    }
-
     @Override
     public void addOutfit(int outfitId) {
         this.getOutfitIds().add(outfitId);
@@ -72,21 +62,12 @@ public class Collection implements ICollection, Observable {
     }
 
 
-    public void addOutfit(Outfit outfit) {
-        this.getOutfits().add(outfit);
-        this.notifyObservers();
-    }
-
     @Override
     public void removeOutfit(int outfitId) {
         this.getOutfitIds().remove(outfitId);  // TODO Check the contains logic here?
         this.notifyObservers();
     }
 
-    public void removeOutfit(Outfit outfit) {
-        this.getOutfits().remove(outfit);  // TODO Check the contains logic here?
-        this.notifyObservers();
-    }
 
     @Override
     public String toString() {
@@ -104,8 +85,7 @@ public class Collection implements ICollection, Observable {
     }
 
     private String getNumOfOutfits(){
-        return Integer.toString(outfits.size());
-//        return Integer.toString(outfitIds.size());
+        return Integer.toString(outfitIds.size());
     }
 
     @Override
@@ -121,7 +101,7 @@ public class Collection implements ICollection, Observable {
     @Override
     public void notifyObservers() {
         for(Observer observer : observers){
-            observer.update(outfits);
+            observer.update(outfitIds);
         }
     }
 }

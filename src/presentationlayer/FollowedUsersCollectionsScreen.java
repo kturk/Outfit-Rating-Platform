@@ -13,6 +13,7 @@ import java.util.List;
 public class FollowedUsersCollectionsScreen extends JFrame{
 
     private JPanel panel;
+    private JLabel collectionLabel;
 
     private JList collectionList;
 
@@ -24,7 +25,7 @@ public class FollowedUsersCollectionsScreen extends JFrame{
     private DefaultListModel model = new DefaultListModel();
 
     public FollowedUsersCollectionsScreen() {
-        super("My Collections");
+        super("Collections");
         screenInitializer();
     }
 
@@ -56,7 +57,7 @@ public class FollowedUsersCollectionsScreen extends JFrame{
     }
 
     private void initializeComponents() {
-
+        collectionLabel = new JLabel();
         collectionList = new JList();
         showDetailsButton = new JButton("Show");
         backButton = new JButton("Back");
@@ -64,15 +65,18 @@ public class FollowedUsersCollectionsScreen extends JFrame{
     }
 
     private void locateComponents() {
-        scrollPane.setBounds(40,15, 320,220);
-        showDetailsButton.setBounds(160,250, 80, 25);
-
+        collectionLabel.setBounds(0, 20, 400, 25);
+        collectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        scrollPane.setBounds(35,40, 320,220);
+        showDetailsButton.setBounds(160,270, 80, 25);
+        showDetailsButton.setHorizontalAlignment(SwingConstants.CENTER);
         backButton.setBounds(20,360,110,25);
 
 
     }
 
     private void addComponents() {
+        panel.add(collectionLabel);
         panel.add(showDetailsButton);
         panel.add(backButton);
         scrollPane.setViewportView(collectionList);
@@ -87,8 +91,6 @@ public class FollowedUsersCollectionsScreen extends JFrame{
 
     public void setList(Object[] itemList) {
         collectionList.setListData(itemList);
-        collectionList.setBackground(Color.gray);
-
     }
 
     public JList getCollectionList() {

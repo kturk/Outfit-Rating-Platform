@@ -23,10 +23,10 @@ public class UserCollectionDetailsController {
         this.collectionDetailView = collectionDetailView;
         this.mediator = mediator;
 
-//        collectionDetailView.setOutfitList(outfitModels.toArray());
-//        collectionDetailView.setAddedOutfitList(getOutfitsFromIdList(collectionModel.getOutfitIds()));
         collectionDetailView.setOutfitList(getOutfitsNotAdded());
-        collectionDetailView.setAddedOutfitList(collectionModel.getOutfits().toArray());
+        collectionDetailView.setAddedOutfitList(getOutfitsFromIdList(collectionModel.getOutfitIds()));
+//        collectionDetailView.setOutfitList(getOutfitsNotAdded());
+//        collectionDetailView.setAddedOutfitList(collectionModel.getOutfits().toArray());
 
         collectionDetailView.setAddOutfitButtonListener(new AddOutfitsListener());
         collectionDetailView.setRemoveOutfitButtonListener(new RemoveOutfitsListener());
@@ -35,7 +35,8 @@ public class UserCollectionDetailsController {
 
     private Object[] getOutfitsNotAdded() {
         List<Outfit> tempOutfitList = new ArrayList<Outfit>(this.outfitModels);
-        tempOutfitList.removeAll(collectionModel.getOutfits());
+//        tempOutfitList.removeAll(collectionModel.getOutfits());
+        tempOutfitList.removeIf(o -> collectionModel.getOutfitIds().contains(o.getId()));
         return tempOutfitList.toArray();
     }
 
@@ -60,7 +61,7 @@ public class UserCollectionDetailsController {
     class AddOutfitsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Outfit selectedOutfit = (Outfit) collectionDetailView.getOutfitList().getSelectedValue();
-            collectionModel.addOutfit(selectedOutfit);
+            collectionModel.addOutfit(selectedOutfit.getId());
         }
     }
 
@@ -68,7 +69,7 @@ public class UserCollectionDetailsController {
         public void actionPerformed(ActionEvent e) {
             collectionDetailView.setOutfitList(outfitModels.toArray());
             Outfit selectedOutfit = (Outfit) collectionDetailView.getAddedOutfitList().getSelectedValue();
-            collectionModel.removeOutfit(selectedOutfit);
+            collectionModel.removeOutfit(selectedOutfit.getId());
         }
     }
 

@@ -18,6 +18,14 @@ public class StatisticsScreen extends JFrame {
     private JList<Object> mostLikedOutfits;
     private JList<Object> mostDislikedOutfits;
 
+    private JLabel mostFollowedUsersLabel;
+    private JLabel mostLikedOutfitsLabel;
+    private JLabel mostDislikedOutfitsLabel;
+
+    JScrollPane mostFollowedUsersScrollPane;
+    JScrollPane mostLikedOutfitsScrollPane;
+    JScrollPane mostDislikedOutfitsScrollPane;
+
     private JButton backButton;
 
     public StatisticsScreen() {
@@ -57,21 +65,52 @@ public class StatisticsScreen extends JFrame {
         mostFollowedUsers = new JList<Object>();
         mostLikedOutfits = new JList<Object>();
         mostDislikedOutfits = new JList<Object>();
+
+        mostFollowedUsersLabel = new JLabel("Most Followed Users");
+        mostLikedOutfitsLabel = new JLabel("Most Liked Outfits");
+        mostDislikedOutfitsLabel = new JLabel("Most Disliked Outfits");
+
+        mostFollowedUsersScrollPane = new JScrollPane();
+        mostLikedOutfitsScrollPane = new JScrollPane();
+        mostDislikedOutfitsScrollPane = new JScrollPane();
+
         backButton = new JButton("Back");
     }
 
     private void locateComponents() {
-        mostFollowedUsers.setBounds(10, 40, 370, 50);
-        mostLikedOutfits.setBounds(10, 100, 370, 50);
-        mostDislikedOutfits.setBounds(10, 160, 370, 50);
+        mostFollowedUsersLabel.setBounds(10, 10, 370, 25);
+        mostFollowedUsersLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//        mostFollowedUsers.setBounds(10, 40, 370, 50);
+        mostFollowedUsersScrollPane.setBounds(10, 40, 360, 80);
+
+        mostLikedOutfitsLabel.setBounds(10, 120, 370, 25);
+        mostLikedOutfitsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//        mostLikedOutfits.setBounds(10, 140, 370, 50);
+        mostLikedOutfitsScrollPane.setBounds(10, 150, 360, 80);
+
+        mostDislikedOutfitsLabel.setBounds(10, 230, 370, 25);
+        mostDislikedOutfitsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+//        mostDislikedOutfits.setBounds(10, 240, 370, 50);
+        mostDislikedOutfitsScrollPane.setBounds(10, 260, 360, 80);
+
         backButton.setBounds(20,360,110,25);
 
     }
 
     private void addComponents() {
         panel.add(mostFollowedUsers);
-        panel.add(mostLikedOutfits);
-        panel.add(mostDislikedOutfits);
+//        panel.add(mostLikedOutfits);
+//        panel.add(mostDislikedOutfits);
+//        panel.add(mostFollowedUsersLabel);
+        mostFollowedUsersScrollPane.setViewportView(mostFollowedUsers);
+        mostLikedOutfitsScrollPane.setViewportView(mostLikedOutfits);
+        mostDislikedOutfitsScrollPane.setViewportView(mostDislikedOutfits);
+        panel.add(mostFollowedUsersScrollPane);
+        panel.add(mostLikedOutfitsScrollPane);
+        panel.add(mostDislikedOutfitsScrollPane);
+        panel.add(mostFollowedUsersLabel);
+        panel.add(mostLikedOutfitsLabel);
+        panel.add(mostDislikedOutfitsLabel);
         panel.add(backButton);
     }
 

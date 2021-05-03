@@ -148,14 +148,34 @@ public class User implements Observable{
         return null;
     }
 
+    public Boolean isDislikedOutfitsContainsId(Integer id) {
+        return this.getDislikedOutfitIds().contains(id);
+    }
+
+    public Boolean isLikedOutfitsContainsId(Integer id) {
+        return this.getLikedOutfitIds().contains(id);
+    }
+
     public void addLikedOutfitId(Integer id) {
+        if (isDislikedOutfitsContainsId(id))
+            this.removeDisLikedOutfitId(id);
         this.getLikedOutfitIds().add(id);
         notifyObservers();
     }
 
     public void addDislikedOutfitId(Integer id) {
+        if (isLikedOutfitsContainsId(id))
+            this.removeLikedOutfitId(id);
         this.getDislikedOutfitIds().add(id);
         notifyObservers();
+    }
+
+    private void removeLikedOutfitId(Integer id) {
+        this.getLikedOutfitIds().remove(id);
+    }
+
+    private void removeDisLikedOutfitId(Integer id) {
+        this.getDislikedOutfitIds().remove(id);
     }
 
     public List<Collection> getFollowedCollections() {

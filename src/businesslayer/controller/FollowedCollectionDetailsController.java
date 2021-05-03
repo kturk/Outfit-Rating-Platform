@@ -24,7 +24,7 @@ public class FollowedCollectionDetailsController {
         this.followedUserCollectionDetailView = followedUserCollectionDetailView;
         this.mediator = mediator;
 
-        followedUserCollectionDetailView.setOutfitList(collectionModel.getOutfits().toArray());
+//        followedUserCollectionDetailView.setOutfitList(collectionModel.getOutfits().toArray());
 
         followedUserCollectionDetailView.setBackButtonListener(new BackListener());
     }

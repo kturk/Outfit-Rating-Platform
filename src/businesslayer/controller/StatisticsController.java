@@ -66,7 +66,7 @@ public class StatisticsController {
 
         return outfits.stream()
                 .filter(v -> v.getNumberOfLikes() == mostLikedOutfit.getNumberOfLikes())
-                .map(Outfit::getBrandName)
+//                .map(Outfit::getBrandName)
                 .toArray();
     }
 
@@ -76,7 +76,7 @@ public class StatisticsController {
 
         return outfits.stream()
                 .filter(v -> v.getNumberOfDislikes() == mostDislikedOutfit.getNumberOfDislikes())
-                .map(Outfit::getBrandName)
+//                .map(Outfit::getBrandName)
                 .toArray();
     }
 

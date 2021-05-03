@@ -26,6 +26,7 @@ public class FollowedUsersCollectionsController {
 
         this.followedUsersCollectionsView.setBackButtonListener(new BackListener());
         this.followedUsersCollectionsView.addShowDetailsListener(new ShowDetailsListener());
+        this.followedUsersCollectionsView.setTitle(userModel.getUserName() + "'s Collections");
     }
 
     public void showView() {

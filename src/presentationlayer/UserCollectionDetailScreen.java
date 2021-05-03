@@ -4,6 +4,7 @@ package presentationlayer;
 // Add button at bottom
 
 import businesslayer.Observer;
+import businesslayer.model.Outfit;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -23,7 +24,6 @@ public class UserCollectionDetailScreen extends JFrame implements Observer {
 
     JScrollPane outfitListScrollPane;
     JScrollPane addedOutfitListScrollPane;
-
 
     private JButton addOutfitButton;
     private JButton removeOutfitButton;
@@ -172,8 +172,8 @@ public class UserCollectionDetailScreen extends JFrame implements Observer {
         ListModel listModel = outfitList.getModel();
         List<Object> newOutfitsList = new ArrayList<Object>();
         for(int i=0; i<listModel.getSize(); i++){
-            Object currentElement = listModel.getElementAt(i);
-            if(!list.contains(currentElement)){
+            Outfit currentElement = (Outfit) listModel.getElementAt(i);
+            if(!list.contains(currentElement.getId())){
                 newOutfitsList.add(currentElement);
             }
         }

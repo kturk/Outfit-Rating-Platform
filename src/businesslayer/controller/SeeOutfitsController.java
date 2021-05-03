@@ -69,9 +69,10 @@ public class SeeOutfitsController {
         @Override
         public void actionPerformed(ActionEvent e) {
             Outfit selectedOutfit = (Outfit) seeOutfitsView.getOutfitList().getSelectedValue();
-            System.out.println(selectedOutfit);
-            selectedOutfit.increaseNumberOfLikes();
-            userModel.addLikedOutfitId(selectedOutfit.getId());
+            if (!userModel.isLikedOutfitsContainsId(selectedOutfit.getId())) {
+                selectedOutfit.increaseNumberOfLikes();
+                userModel.addLikedOutfitId(selectedOutfit.getId());
+            }
         }
     }
 
@@ -79,8 +80,10 @@ public class SeeOutfitsController {
         @Override
         public void actionPerformed(ActionEvent e) {
             Outfit selectedOutfit = (Outfit) seeOutfitsView.getOutfitList().getSelectedValue();
-            selectedOutfit.increaseNumberOfDislikes();
-            userModel.addDislikedOutfitId(selectedOutfit.getId());
+            if (!userModel.isDislikedOutfitsContainsId(selectedOutfit.getId())) {
+                selectedOutfit.increaseNumberOfDislikes();
+                userModel.addDislikedOutfitId(selectedOutfit.getId());
+            }
         }
     }
 
