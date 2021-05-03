@@ -169,15 +169,34 @@ public class UserCollectionDetailScreen extends JFrame implements Observer {
     @Override
     public void update(List<?> list) {
 
-        ListModel listModel = outfitList.getModel();
+        ListModel outfitListModel = outfitList.getModel();
+        ListModel addedOutfitListModel = addedOutfitList.getModel();
+
+
         List<Object> newOutfitsList = new ArrayList<Object>();
-        for(int i=0; i<listModel.getSize(); i++){
-            Outfit currentElement = (Outfit) listModel.getElementAt(i);
+        List<Object> newAddedOutfitsList = new ArrayList<Object>();
+
+        for(int i=0; i<outfitListModel.getSize(); i++){
+            Outfit currentElement = (Outfit) outfitListModel.getElementAt(i);
             if(!list.contains(currentElement.getId())){
                 newOutfitsList.add(currentElement);
             }
+            else{
+                newAddedOutfitsList.add(currentElement);
+            }
         }
+
+        for(int i=0; i<addedOutfitListModel.getSize(); i++){
+            Outfit currentElement = (Outfit) addedOutfitListModel.getElementAt(i);
+            if(!list.contains(currentElement.getId())){
+                newOutfitsList.add(currentElement);
+            }
+            else{
+                newAddedOutfitsList.add(currentElement);
+            }
+        }
+
         setOutfitList(newOutfitsList.toArray());
-        setAddedOutfitList(list.toArray());
+        setAddedOutfitList(newAddedOutfitsList.toArray());
     }
 }

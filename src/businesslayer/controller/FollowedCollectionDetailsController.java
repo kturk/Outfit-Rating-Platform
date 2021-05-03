@@ -24,12 +24,11 @@ public class FollowedCollectionDetailsController {
         this.followedUserCollectionDetailView = followedUserCollectionDetailView;
         this.mediator = mediator;
 
-//        followedUserCollectionDetailView.setOutfitList(collectionModel.getOutfits().toArray());
+        followedUserCollectionDetailView.setOutfitList(getOutfitsFromIdList(collectionModel.getOutfitIds()));
 
         followedUserCollectionDetailView.setBackButtonListener(new BackListener());
     }
-
-
+    
     private Object[] getOutfitsFromIdList(List<Integer> idList) {
         List<Outfit> outfitList = new ArrayList<Outfit>();
         for(Outfit outfit : outfitModels){
