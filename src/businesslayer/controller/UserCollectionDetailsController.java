@@ -23,7 +23,7 @@ public class UserCollectionDetailsController {
         this.collectionDetailView = collectionDetailView;
         this.mediator = mediator;
 
-        collectionDetailView.setOutfitList(getOutfitsNotAdded());
+        collectionDetailView.setOutfitList(outfitModels.toArray());
         collectionDetailView.setAddedOutfitList(getOutfitsFromIdList(collectionModel.getOutfitIds()));
 //        collectionDetailView.setOutfitList(getOutfitsNotAdded());
 //        collectionDetailView.setAddedOutfitList(collectionModel.getOutfits().toArray());
@@ -68,8 +68,9 @@ public class UserCollectionDetailsController {
 
     class RemoveOutfitsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            collectionDetailView.setOutfitList(outfitModels.toArray());
+//            collectionDetailView.setOutfitList(outfitModels.toArray());
             Outfit selectedOutfit = (Outfit) collectionDetailView.getAddedOutfitList().getSelectedValue();
+            System.out.println("AA "+ selectedOutfit);
             collectionModel.removeOutfit(selectedOutfit.getId());
             mediator.writeXML();
         }

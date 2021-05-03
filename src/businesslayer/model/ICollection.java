@@ -16,5 +16,5 @@ public interface ICollection {
 
     void addOutfit(int outfitId);
 
-    void removeOutfit(int outfitId);
+    void removeOutfit(Integer outfitId);
 }

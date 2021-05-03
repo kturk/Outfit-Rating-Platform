@@ -63,7 +63,9 @@ public class Collection implements ICollection, Observable {
 
 
     @Override
-    public void removeOutfit(int outfitId) {
+    public void removeOutfit(Integer outfitId) {
+        System.out.println("outid " +this.getOutfitIds());
+        System.out.println("ss " + outfitId);
         this.getOutfitIds().remove(outfitId);  // TODO Check the contains logic here?
         this.notifyObservers();
     }
