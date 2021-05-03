@@ -1,16 +1,9 @@
 package presentationlayer;
 
-// All items line by line
-// Add button at bottom
-
-import businesslayer.Observer;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
-// If if does not belong to viewer dont show add button
 public class FollowedUserCollectionDetailScreen extends JFrame{
 
     private JPanel panel;
@@ -32,6 +25,7 @@ public class FollowedUserCollectionDetailScreen extends JFrame{
     private void screenInitializer() {
         setSize(400,450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         initializePanels();
         locatePanels();
@@ -49,7 +43,6 @@ public class FollowedUserCollectionDetailScreen extends JFrame{
     }
 
     private void locatePanels() {
-//        panel.setBounds(40,100,20,20);
         panel.setLayout(null);
     }
 
@@ -82,10 +75,6 @@ public class FollowedUserCollectionDetailScreen extends JFrame{
 
     }
 
-    public JList getOutfitList() {
-        return outfitList;
-    }
-
     public void setOutfitList(Object[] itemList) {
         outfitList.setListData(itemList);
     }
@@ -100,6 +89,10 @@ public class FollowedUserCollectionDetailScreen extends JFrame{
 
     public void showScreen(){
         setVisible(true);
+    }
+
+    public void showError(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage);
     }
 
 }

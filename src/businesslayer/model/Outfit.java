@@ -18,7 +18,7 @@ public class Outfit implements IOutfit, Observable {
     private int numberOfLikes;
     private int numberOfDislikes;
     private List<String> comments;
-    private List<Observer> observers;
+    private transient List<Observer> observers;
 
     public Outfit() {
         this.id = count;
@@ -161,23 +161,18 @@ public class Outfit implements IOutfit, Observable {
 
     @Override
     public String toString() {
-        return "Outfit{" +
-                "brandName='" + brandName + '\'' +
-                ", clothingType=" + clothingType +
-                ", gender=" + gender +
-                ", size=" + size +
-                ", color=" + color +
-                '}';
+        return "BrandName: " + brandName +
+                " - ClothingType: " + clothingType +
+                " - Gender: " + gender +
+                " - Size: " + size +
+                " - Color: " + color +
+                " - NumLikes: " + numberOfLikes +
+                " - NumDislikes: " + numberOfDislikes;
     }
 
     @Override
     public void attach(Observer observer) {
         this.observers.add(observer);
-    }
-
-    @Override
-    public void detach(Observer observer) {
-        this.observers.remove(observer);
     }
 
     @Override

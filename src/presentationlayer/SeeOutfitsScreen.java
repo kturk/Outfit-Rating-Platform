@@ -1,18 +1,14 @@
 package presentationlayer;
 
-// Add button on add to collection screen
 
 import businesslayer.Observer;
 import businesslayer.model.Outfit;
-import businesslayer.model.User;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-// Like dislike comment buttons on like screen
 public class SeeOutfitsScreen extends JFrame implements Observer{
 
     private JPanel panel;
@@ -43,6 +39,7 @@ public class SeeOutfitsScreen extends JFrame implements Observer{
     private void screenInitializer() {
         setSize(600,600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         initializePanels();
         locatePanels();
@@ -60,7 +57,6 @@ public class SeeOutfitsScreen extends JFrame implements Observer{
     }
 
     private void locatePanels() {
-//        panel.setBounds(40,100,20,20);
         panel.setLayout(null);
     }
 
@@ -131,14 +127,6 @@ public class SeeOutfitsScreen extends JFrame implements Observer{
         return outfitList;
     }
 
-    public JList getLikedOutfitList() {
-        return likedOutfitList;
-    }
-
-    public JList getDislikedOutfitList() {
-        return dislikedOutfitList;
-    }
-
     public void setOutfitList(Object[] outfits) {
         outfitList.setListData(outfits);
     }
@@ -175,6 +163,10 @@ public class SeeOutfitsScreen extends JFrame implements Observer{
         dispose();
     }
 
+    public void showError(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage);
+    }
+
     @Override
     public void update(List<?> list) {
         List<Object> likedItemIds = (List<Object>) list.subList(0, list.indexOf(-1));
@@ -183,8 +175,6 @@ public class SeeOutfitsScreen extends JFrame implements Observer{
         List<Object> likedItems = new ArrayList<Object>();
         List<Object> dislikedItems = new ArrayList<Object>();
 
-//        List<Object> temp = new ArrayList<Object>();
-
         for (int i = 0; i < outfitList.getModel().getSize(); i++) {
             Outfit currentOutfit = (Outfit) outfitList.getModel().getElementAt(i);
             if (likedItemIds.contains(currentOutfit.getId()))
@@ -192,9 +182,6 @@ public class SeeOutfitsScreen extends JFrame implements Observer{
             else if (dislikedItemIds.contains(currentOutfit.getId()))
                 dislikedItems.add(currentOutfit);
         }
-
-
-
         setLikedOutfitList(likedItems.toArray());
         setDislikedOutfitList(dislikedItems.toArray());
     }

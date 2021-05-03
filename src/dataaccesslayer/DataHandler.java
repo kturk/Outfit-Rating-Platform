@@ -18,6 +18,7 @@ public class DataHandler {
     public DataHandler(String xmlPath, String jsonPath) {
         this.xmlPath = xmlPath;
         this.jsonPath = jsonPath;
+        initializeDataIfFileNotExist();
     }
 
     public Users readXML() {
@@ -27,7 +28,7 @@ public class DataHandler {
             if (unmarshaller != null)
                 users = (Users) unmarshaller.unmarshal(new FileInputStream(this.xmlPath));
             else
-                System.out.println("Couldn't read Users from file.");  // TODO can be deleted
+                System.out.println("Couldn't read Users from file.");
             return users;
         } catch (Exception e) {
             e.printStackTrace();
@@ -42,7 +43,7 @@ public class DataHandler {
             if (marshaller != null)
                 marshaller.marshal(users, new FileOutputStream(this.xmlPath));
             else
-                System.out.println("Null Marshaller");  // TODO can be deleted
+                System.out.println("Null Marshaller");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,5 +71,13 @@ public class DataHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void initializeDataIfFileNotExist() {
+        if (!new File(this.jsonPath).exists() || !new File(this.xmlPath).exists()) {
+            this.writeJson(DataInitializer.getInitialOutfits());
+            this.writeXML(DataInitializer.getInitialUsers());
+        }
+
     }
 }

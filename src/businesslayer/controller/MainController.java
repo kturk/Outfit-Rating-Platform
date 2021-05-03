@@ -9,20 +9,16 @@ import java.awt.event.ActionListener;
 
 public class MainController {
 
-    private User userModel;
-//    private Collection collectionModel;
-
-    private MainScreen mainView;
-
-    private Mediator mediator;
+    private final User userModel;
+    private final MainScreen mainView;
+    private final Mediator mediator;
 
     public MainController(User userModel, MainScreen mainView, Mediator mediator) {
-        this.userModel = userModel;  // Logged User
-//        this.collectionModel = collectionModel;
+        this.userModel = userModel;
         this.mainView = mainView;
         this.mediator = mediator;
 
-        mainView.renderUsername(userModel.getUserName());
+        mainView.renderUsername(userModel.getUserName().toUpperCase());
         mainView.addUserCollectionsButtonListener(new UserCollectionListener());
         mainView.addSeeUsersButtonListener(new SeeUsersListener());
         mainView.addSeeOutfitsButtonListener(new SeeOutfitsListener());
@@ -42,46 +38,42 @@ public class MainController {
 
     class UserCollectionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            mainView.closeScreen();
+            closeView();
             mediator.navigateToUsersCollectionsScreen();
         }
     }
 
     class SeeUsersListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            System.out.println("SeeUsersScreen");
-            mainView.closeScreen();
-            mediator.navigateToSeeUsersScreen(userModel);
+            closeView();
+            mediator.navigateToSeeUsersScreen();
         }
     }
 
     class SeeOutfitsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            System.out.println("SeeOutfitsScreen");
-            mainView.closeScreen();
-            mediator.navigateToSeeOutfitsScreen(userModel);
+            closeView();
+            mediator.navigateToSeeOutfitsScreen();
         }
     }
 
     class ShowFollowedUsersListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            System.out.println("ShowFollowedUsersCollections");
-            mainView.closeScreen();
+            closeView();
             mediator.navigateToFollowedUsersCollectionsScreen();
         }
     }
 
     class StatisticsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            System.out.println("StatisticsScreen");
-            mainView.closeScreen();
+            closeView();
             mediator.navigateToStatisticsScreen();
         }
     }
 
     class LogoutListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            mainView.closeScreen();
+            closeView();
             mediator.navigateToLoginScreen();
         }
     }

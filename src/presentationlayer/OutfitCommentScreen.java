@@ -4,7 +4,6 @@ import businesslayer.Observer;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -32,6 +31,7 @@ public class OutfitCommentScreen extends JFrame implements Observer {
     private void screenInitializer() {
         setSize(400,450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         initializePanels();
         locatePanels();
@@ -57,7 +57,6 @@ public class OutfitCommentScreen extends JFrame implements Observer {
     }
 
     private void initializeComponents() {
-
         commentList = new JList();
         postCommentButton = new JButton("Post");
         backButton = new JButton("Back");
@@ -66,8 +65,6 @@ public class OutfitCommentScreen extends JFrame implements Observer {
         newCommentLabel = new JLabel("New Comment:");
         commentArea.setLineWrap(true);
         commentArea.setWrapStyleWord(true);
-
-
     }
 
     private void locateComponents() {
@@ -82,8 +79,6 @@ public class OutfitCommentScreen extends JFrame implements Observer {
         newCommentLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         commentList.setBorder(new EmptyBorder(10,10, 10, 10));
-
-
     }
 
     private void addComponents() {
@@ -103,7 +98,6 @@ public class OutfitCommentScreen extends JFrame implements Observer {
 
     public void setCommentList(Object[] itemList) {
         commentList.setListData(itemList);
-
     }
 
     public JList getCommentList() {
@@ -124,6 +118,10 @@ public class OutfitCommentScreen extends JFrame implements Observer {
 
     public void showScreen(){
         setVisible(true);
+    }
+
+    public void showError(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage);
     }
 
     @Override

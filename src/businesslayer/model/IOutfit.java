@@ -9,7 +9,7 @@ public interface IOutfit {
     }
 
     enum Gender {
-        MALE, FEMALE, PREFERNOTTOSAY
+        MALE, FEMALE
     }
 
     enum Size {

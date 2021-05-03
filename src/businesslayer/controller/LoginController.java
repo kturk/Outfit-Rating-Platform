@@ -11,9 +11,9 @@ import java.util.Map;
 
 public class LoginController {
 
-    private List<User> userModels;
-    private LoginScreen loginView;
-    private Mediator mediator;
+    private final List<User> userModels;
+    private final LoginScreen loginView;
+    private final Mediator mediator;
 
     public LoginController(List<User> userModels, LoginScreen loginView, Mediator mediator) {
         this.userModels = userModels;
@@ -44,16 +44,15 @@ public class LoginController {
     class LoginListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Map<String, String> credentials = loginView.getCredentials();
-            System.out.println(credentials.get("username")+ credentials.get("password"));
             User loggedInUser = checkCredentials(credentials.get("username"), credentials.get("password"));
 
             if(loggedInUser != null){
-                loginView.closeScreen();
+                closeView();
                 mediator.setLoggedUser(loggedInUser);
                 mediator.navigateToMainScreen();
             }
             else{
-                loginView.invalidCredentialError("Wrong username or password.");
+                loginView.showError("Wrong username or password.");
             }
         }
     }

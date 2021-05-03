@@ -12,21 +12,20 @@ import java.util.List;
 
 public class UserCollectionDetailsController {
 
-    private Collection collectionModel;
-    private List<Outfit> outfitModels;
-    private UserCollectionDetailScreen collectionDetailView;
-    private Mediator mediator;
+    private final Collection collectionModel;
+    private final List<Outfit> outfitModels;
+    private final UserCollectionDetailScreen collectionDetailView;
+    private final Mediator mediator;
 
-    public UserCollectionDetailsController(Collection collectionModel, List<Outfit> outfitModels, UserCollectionDetailScreen collectionDetailView, Mediator mediator) {
+    public UserCollectionDetailsController(Collection collectionModel, List<Outfit> outfitModels,
+                                           UserCollectionDetailScreen collectionDetailView, Mediator mediator) {
         this.collectionModel = collectionModel;
         this.outfitModels = outfitModels;
         this.collectionDetailView = collectionDetailView;
         this.mediator = mediator;
 
-        collectionDetailView.setOutfitList(outfitModels.toArray());
+        collectionDetailView.setOutfitList(getOutfitsNotAdded());
         collectionDetailView.setAddedOutfitList(getOutfitsFromIdList(collectionModel.getOutfitIds()));
-//        collectionDetailView.setOutfitList(getOutfitsNotAdded());
-//        collectionDetailView.setAddedOutfitList(collectionModel.getOutfits().toArray());
 
         collectionDetailView.setAddOutfitButtonListener(new AddOutfitsListener());
         collectionDetailView.setRemoveOutfitButtonListener(new RemoveOutfitsListener());
@@ -35,7 +34,6 @@ public class UserCollectionDetailsController {
 
     private Object[] getOutfitsNotAdded() {
         List<Outfit> tempOutfitList = new ArrayList<Outfit>(this.outfitModels);
-//        tempOutfitList.removeAll(collectionModel.getOutfits());
         tempOutfitList.removeIf(o -> collectionModel.getOutfitIds().contains(o.getId()));
         return tempOutfitList.toArray();
     }
@@ -61,24 +59,30 @@ public class UserCollectionDetailsController {
     class AddOutfitsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Outfit selectedOutfit = (Outfit) collectionDetailView.getOutfitList().getSelectedValue();
-            collectionModel.addOutfit(selectedOutfit.getId());
-            mediator.writeXML();
+            if (selectedOutfit != null) {
+                collectionModel.addOutfit(selectedOutfit.getId());
+                mediator.writeXML();
+            }
+            else
+                collectionDetailView.showError("Please select an outfit from the list.");
         }
     }
 
     class RemoveOutfitsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-//            collectionDetailView.setOutfitList(outfitModels.toArray());
             Outfit selectedOutfit = (Outfit) collectionDetailView.getAddedOutfitList().getSelectedValue();
-            System.out.println("AA "+ selectedOutfit);
-            collectionModel.removeOutfit(selectedOutfit.getId());
-            mediator.writeXML();
+            if (selectedOutfit != null) {
+                collectionModel.removeOutfit(selectedOutfit.getId());
+                mediator.writeXML();
+            }
+            else
+                collectionDetailView.showError("Please select an user from the list.");
         }
     }
 
     class BackListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            collectionDetailView.closeScreen();
+            closeView();
             mediator.navigateToUsersCollectionsScreen();
         }
     }

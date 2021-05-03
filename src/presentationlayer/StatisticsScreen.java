@@ -1,16 +1,9 @@
 package presentationlayer;
 
-import businesslayer.model.Outfit;
-import businesslayer.model.User;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
 
-// Statistics text
 public class StatisticsScreen extends JFrame {
 
     private JPanel panel;
@@ -36,6 +29,7 @@ public class StatisticsScreen extends JFrame {
     private void screenInitializer() {
         setSize(400,450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         initializePanels();
         locatePanels();
@@ -53,7 +47,6 @@ public class StatisticsScreen extends JFrame {
     }
 
     private void locatePanels() {
-//        panel.setBounds(40,100,20,20);
         panel.setLayout(null);
     }
 
@@ -80,17 +73,14 @@ public class StatisticsScreen extends JFrame {
     private void locateComponents() {
         mostFollowedUsersLabel.setBounds(10, 10, 370, 25);
         mostFollowedUsersLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//        mostFollowedUsers.setBounds(10, 40, 370, 50);
         mostFollowedUsersScrollPane.setBounds(10, 40, 360, 80);
 
         mostLikedOutfitsLabel.setBounds(10, 120, 370, 25);
         mostLikedOutfitsLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//        mostLikedOutfits.setBounds(10, 140, 370, 50);
         mostLikedOutfitsScrollPane.setBounds(10, 150, 360, 80);
 
         mostDislikedOutfitsLabel.setBounds(10, 230, 370, 25);
         mostDislikedOutfitsLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//        mostDislikedOutfits.setBounds(10, 240, 370, 50);
         mostDislikedOutfitsScrollPane.setBounds(10, 260, 360, 80);
 
         backButton.setBounds(20,360,110,25);
@@ -99,9 +89,6 @@ public class StatisticsScreen extends JFrame {
 
     private void addComponents() {
         panel.add(mostFollowedUsers);
-//        panel.add(mostLikedOutfits);
-//        panel.add(mostDislikedOutfits);
-//        panel.add(mostFollowedUsersLabel);
         mostFollowedUsersScrollPane.setViewportView(mostFollowedUsers);
         mostLikedOutfitsScrollPane.setViewportView(mostLikedOutfits);
         mostDislikedOutfitsScrollPane.setViewportView(mostDislikedOutfits);
@@ -136,5 +123,9 @@ public class StatisticsScreen extends JFrame {
 
     public void closeScreen(){
         dispose();
+    }
+
+    public void showError(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage);
     }
 }

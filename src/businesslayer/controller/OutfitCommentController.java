@@ -2,7 +2,6 @@ package businesslayer.controller;
 
 import businesslayer.Mediator;
 import businesslayer.model.Outfit;
-import businesslayer.model.User;
 import presentationlayer.OutfitCommentScreen;
 
 import java.awt.event.ActionEvent;
@@ -10,16 +9,13 @@ import java.awt.event.ActionListener;
 
 public class OutfitCommentController {
 
-    private User userModel;
-    private Outfit outfitModel;
-    private OutfitCommentScreen outfitCommentView;
-    private Mediator mediator;
+    private final Outfit outfitModel;
+    private final OutfitCommentScreen outfitCommentView;
+    private final Mediator mediator;
 
-    public OutfitCommentController(User userModel,
-                                   Outfit outfitModel,
+    public OutfitCommentController(Outfit outfitModel,
                                    OutfitCommentScreen outfitCommentView,
                                    Mediator mediator) {
-        this.userModel = userModel;
         this.outfitModel = outfitModel;
         this.outfitCommentView = outfitCommentView;
         this.mediator = mediator;
@@ -40,15 +36,20 @@ public class OutfitCommentController {
 
     class BackListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            outfitCommentView.closeScreen();
-            mediator.navigateToSeeOutfitsScreen(userModel);
+            closeView();
+            mediator.navigateToSeeOutfitsScreen();
         }
     }
 
     class PostCommentListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String newComment = outfitCommentView.getCommentArea().getText();
-            outfitModel.addComment(newComment);
+            if (!newComment.equals("")) {
+                outfitModel.addComment(newComment);
+                mediator.writeJSON();
+            }
+            else
+                outfitCommentView.showError("Please enter a comment.");
         }
     }
 }

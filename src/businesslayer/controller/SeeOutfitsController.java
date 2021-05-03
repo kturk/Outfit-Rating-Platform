@@ -8,15 +8,13 @@ import presentationlayer.SeeOutfitsScreen;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class SeeOutfitsController {
 
-    private List<Outfit> outfitModels;
-    private User userModel;
-    private SeeOutfitsScreen seeOutfitsView;
-    private Mediator mediator;
+    private final List<Outfit> outfitModels;
+    private final User userModel;
+    private final SeeOutfitsScreen seeOutfitsView;
+    private final Mediator mediator;
 
     public SeeOutfitsController(List<Outfit> outfitModels, User userModel,
                                 SeeOutfitsScreen seeOutfitsView, Mediator mediator) {
@@ -34,15 +32,6 @@ public class SeeOutfitsController {
         this.seeOutfitsView.setBackButtonListener(new BackListener());
 
         this.mediator = mediator;
-    }
-
-    private Object[] getOutfitsWithNoAction() {
-        List<Integer> userInterractedOutfits = Stream
-                .concat(userModel.getLikedOutfitIds().stream(), userModel.getDislikedOutfitIds().stream())
-                .collect(Collectors.toList());
-        return outfitModels.stream()
-                .filter(o -> !userInterractedOutfits.contains(o.getId()))
-                .toArray();
     }
 
     private Object[] getUsersLikedOutfits() {
@@ -69,10 +58,17 @@ public class SeeOutfitsController {
         @Override
         public void actionPerformed(ActionEvent e) {
             Outfit selectedOutfit = (Outfit) seeOutfitsView.getOutfitList().getSelectedValue();
-            if (!userModel.isLikedOutfitsContainsId(selectedOutfit.getId())) {
-                selectedOutfit.increaseNumberOfLikes();
-                userModel.addLikedOutfitId(selectedOutfit.getId());
+            if (selectedOutfit != null) {
+                if (!userModel.isLikedOutfitsContainsId(selectedOutfit.getId())) {
+                    selectedOutfit.increaseNumberOfLikes();
+                    if (userModel.isDislikedOutfitsContainsId(selectedOutfit.getId()))
+                        selectedOutfit.decreaseNumberOfDislikes();
+                    userModel.addLikedOutfitId(selectedOutfit.getId());
+                    mediator.writeJSON();
+                }
             }
+            else
+                seeOutfitsView.showError("Please select an outfit from the list.");
         }
     }
 
@@ -80,25 +76,36 @@ public class SeeOutfitsController {
         @Override
         public void actionPerformed(ActionEvent e) {
             Outfit selectedOutfit = (Outfit) seeOutfitsView.getOutfitList().getSelectedValue();
-            if (!userModel.isDislikedOutfitsContainsId(selectedOutfit.getId())) {
-                selectedOutfit.increaseNumberOfDislikes();
-                userModel.addDislikedOutfitId(selectedOutfit.getId());
+            if (selectedOutfit != null) {
+                if (!userModel.isDislikedOutfitsContainsId(selectedOutfit.getId())) {
+                    selectedOutfit.increaseNumberOfDislikes();
+                    if (userModel.isLikedOutfitsContainsId(selectedOutfit.getId()))
+                        selectedOutfit.decreaseNumberOfLikes();
+                    userModel.addDislikedOutfitId(selectedOutfit.getId());
+                    mediator.writeJSON();
+                }
             }
+            else
+                seeOutfitsView.showError("Please select an outfit from the list.");
         }
     }
 
     class CommentButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            seeOutfitsView.closeScreen();
             Outfit selectedOutfit = (Outfit) seeOutfitsView.getOutfitList().getSelectedValue();
-            mediator.navigateToOutfitCommentScreen(userModel, selectedOutfit);
+            if (selectedOutfit != null) {
+                closeView();
+                mediator.navigateToOutfitCommentScreen(selectedOutfit);
+            }
+            else
+                seeOutfitsView.showError("Please select an outfit from the list.");
         }
     }
 
     class BackListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            seeOutfitsView.closeScreen();
+            closeView();
             mediator.navigateToMainScreen();
         }
     }

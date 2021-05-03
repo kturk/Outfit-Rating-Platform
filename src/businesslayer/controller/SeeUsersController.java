@@ -11,10 +11,10 @@ import java.util.List;
 
 public class SeeUsersController {
 
-    private List<User> userModels;
-    private User userModel;
-    private SeeUsersScreen seeUsersView;
-    private Mediator mediator;
+    private final List<User> userModels;
+    private final User userModel;
+    private final SeeUsersScreen seeUsersView;
+    private final Mediator mediator;
 
     public SeeUsersController(List<User> userModels, User userModel, SeeUsersScreen seeUsersView, Mediator mediator) {
         this.userModels = userModels;
@@ -54,26 +54,33 @@ public class SeeUsersController {
     class FollowButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             User selectedUser = (User) seeUsersView.getUserList().getSelectedValue();
-            selectedUser.addFollowerUser(userModel);
-            userModel.addFollowingUser(selectedUser);
-            mediator.writeXML();
-
+            if (selectedUser != null) {
+                selectedUser.addFollowerUser(userModel);
+                userModel.addFollowingUser(selectedUser);
+                mediator.writeXML();
+            }
+            else
+                seeUsersView.showError("Please select an user from the list.");
         }
     }
 
     class UnfollowButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            seeUsersView.setUserList(getUsersWithoutCurrentUser().toArray());
             User selectedUser = (User) seeUsersView.getFollowedUserList().getSelectedValue();
-            selectedUser.removeFollowerUser(userModel);
-            userModel.removeFollowingUser(selectedUser);
-            mediator.writeXML();
+            if (selectedUser != null) {
+                seeUsersView.setUserList(getUsersWithoutCurrentUser().toArray());
+                selectedUser.removeFollowerUser(userModel);
+                userModel.removeFollowingUser(selectedUser);
+                mediator.writeXML();
+            }
+            else
+                seeUsersView.showError("Please select an user from the list.");
         }
     }
 
     class BackListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            seeUsersView.closeScreen();
+            closeView();
             mediator.navigateToMainScreen();
         }
     }

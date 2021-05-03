@@ -24,12 +24,12 @@ public class User implements Observable{
     @XmlElement(name = "FollowerUser")
     @XmlIDREF
     private List<User> followerUsers;
+    @XmlElementWrapper(name="Collections")
+    @XmlElement(name = "Collection")
     private List<Collection> collections;
     @XmlTransient
     private List<Observer> observers;
-    @XmlTransient
     private List<Integer> likedOutfitIds;
-    @XmlTransient
     private List<Integer> dislikedOutfitIds;
 
     public User() {
@@ -58,10 +58,8 @@ public class User implements Observable{
         this.dislikedOutfitIds = new ArrayList<Integer>();
     }
 
-//    @XmlAttribute
     public int getId() { return this.id;}
 
-//    @XmlElement
     public String getUserName() {
         return userName;
     }
@@ -70,7 +68,6 @@ public class User implements Observable{
         this.userName = userName;
     }
 
-//    @XmlElement
     public String getPassword() {
         return password;
     }
@@ -79,12 +76,10 @@ public class User implements Observable{
         this.password = password;
     }
 
-//    @XmlElement
     public List<User> getFollowingUsers() {
         return followingUsers;
     }
 
-//    @XmlElement
     public List<User> getFollowerUsers() {
         return followerUsers;
     }
@@ -124,34 +119,6 @@ public class User implements Observable{
     public void createCollection(Collection collection) {
         this.getCollections().add(collection);
         this.notifyObservers();
-    }
-
-    public void deleteCollection(Collection collection) {
-        this.getCollections().remove(collection);
-    }
-
-    public void addOutfitToCollection(IOutfit outfit, int collectionId) {
-        ICollection selectedCollection = getCollectionById(collectionId);
-        if (selectedCollection != null)
-            selectedCollection.addOutfit(outfit.getId());
-        else
-            throw new NoSuchElementException();
-    }
-
-    public void removeOutfitFromCollection(IOutfit outfit, int collectionId) {
-        ICollection selectedCollection = getCollectionById(collectionId);
-        if (selectedCollection != null)
-            selectedCollection.removeOutfit(outfit.getId());
-        else
-            throw new NoSuchElementException();
-    }
-
-    private ICollection getCollectionById(int collectionId) {
-        for (ICollection collection: this.getCollections()) {
-            if (collection.getId() == collectionId)
-                return collection;
-        }
-        return null;
     }
 
     public Boolean isDislikedOutfitsContainsId(Integer id) {
@@ -199,11 +166,6 @@ public class User implements Observable{
     }
 
     @Override
-    public void detach(Observer observer) {
-        observers.remove(observer);
-    }
-
-    @Override
     public void notifyObservers() {
         for(Observer observer : observers) {
             if(observer.getClass().getSimpleName().equals("UserCollectionsScreen")){
@@ -213,8 +175,7 @@ public class User implements Observable{
                 observer.update(this.getFollowingUsers());
             }
             else if(observer.getClass().getSimpleName().equals("SeeOutfitsScreen")){
-                List<Integer> likesAndDislikes = new ArrayList<Integer>();
-                likesAndDislikes.addAll(this.getLikedOutfitIds());
+                List<Integer> likesAndDislikes = new ArrayList<Integer>(this.getLikedOutfitIds());
                 likesAndDislikes.add(-1);
                 likesAndDislikes.addAll(this.getDislikedOutfitIds());
                 observer.update(likesAndDislikes);
@@ -226,7 +187,7 @@ public class User implements Observable{
 
     @Override
     public String toString() {
-        return "ID:" + stringId +
-                "User: " + userName;
+        return "ID: " + stringId +
+                " -- " + userName.toUpperCase();
     }
 }

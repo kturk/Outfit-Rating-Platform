@@ -1,7 +1,6 @@
 package presentationlayer;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,8 +24,8 @@ public class LoginScreen extends JFrame{
 
     private void screenInitializer() {
         setSize(300,250);
-//        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         initializePanels();
         locatePanels();
@@ -36,8 +35,6 @@ public class LoginScreen extends JFrame{
         locateComponents();
         addComponents();
         setLocationRelativeTo(null);
-//        setVisible(true);
-
     }
 
     private void initializePanels() {
@@ -88,12 +85,8 @@ public class LoginScreen extends JFrame{
         return(credentials);
     }
 
-    public void invalidCredentialError(String errorMessage) {
+    public void showError(String errorMessage) {
         JOptionPane.showMessageDialog(this, errorMessage);
-    }
-
-    public void setVisible(Boolean visible){
-        setVisible(visible);
     }
 
     public void closeScreen(){

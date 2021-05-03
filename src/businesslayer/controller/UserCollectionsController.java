@@ -5,19 +5,14 @@ import businesslayer.model.Collection;
 import businesslayer.model.User;
 import presentationlayer.UserCollectionsScreen;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserCollectionsController {
 
-    private User userModel;
-    private UserCollectionsScreen userCollectionsView;
-    private Mediator mediator;
+    private final User userModel;
+    private final UserCollectionsScreen userCollectionsView;
+    private final Mediator mediator;
 
     public UserCollectionsController(User userModel, UserCollectionsScreen userCollectionsView, Mediator mediator) {
         this.userModel = userModel;
@@ -46,7 +41,7 @@ public class UserCollectionsController {
 
     class BackListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            userCollectionsView.closeScreen();
+            closeView();
             mediator.navigateToMainScreen();
         }
     }
@@ -54,25 +49,24 @@ public class UserCollectionsController {
     class AddCollectionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             String collectionName = userCollectionsView.getNewCollectionField().getText();
-            addNewCollection(collectionName);
-            mediator.writeXML();
+            if (!collectionName.equals("")) {
+                addNewCollection(collectionName);
+                mediator.writeXML();
+            }
+            else
+                userCollectionsView.showError("Please enter a collection name.");
         }
     }
 
     class ShowDetailsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Collection selectedCollection = (Collection) userCollectionsView.getCollectionList().getSelectedValue();
-            userCollectionsView.closeScreen();
-            mediator.navigateToCollectionDetailsScreen(selectedCollection);
+            if (selectedCollection != null) {
+                closeView();
+                mediator.navigateToCollectionDetailsScreen(selectedCollection);
+            }
+            else
+                userCollectionsView.showError("Please select a collection from the list.");
         }
     }
-
-//    class SelectionListener implements ListSelectionListener {
-//        public void valueChanged(ListSelectionEvent e) {
-//            JList source = (JList)e.getSource();
-//            Collection s = (Collection) source.getSelectedValue();
-//            System.out.println(s.getId());
-//
-//        }
-//    }
 }

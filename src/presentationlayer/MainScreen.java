@@ -3,11 +3,6 @@ package presentationlayer;
 import java.awt.event.*;
 import javax.swing.*;
 
-// UserCollectionsScreen
-// ShowUsersScreen
-// ShowFollowedUsersCollections
-// StatisticsScreen
-// Logout
 public class MainScreen extends JFrame{
 
     private JPanel buttonsPanel;
@@ -29,8 +24,8 @@ public class MainScreen extends JFrame{
 
     private void screenInitializer() {
         setSize(400,400);
-//        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         initializePanels();
         locatePanels();
@@ -40,7 +35,6 @@ public class MainScreen extends JFrame{
         locateComponents();
         addComponents();
         setLocationRelativeTo(null);
-
     }
 
     private void initializePanels() {
@@ -78,7 +72,6 @@ public class MainScreen extends JFrame{
         showFollowedUsersCollectionsButton.setBounds(75,200,250,25);
         statisticsButton.setBounds(75,240,250,25);
         logoutButton.setBounds(75,280,250,25);
-
     }
 
     private void addComponents() {
@@ -119,10 +112,6 @@ public class MainScreen extends JFrame{
     public void addLogoutButtonListener(ActionListener actionListener) {
         logoutButton.addActionListener(actionListener);
     }
-
-//    public void setVisible(Boolean visible){
-//        setVisible(visible);
-//    }
 
     public void closeScreen(){
         dispose();

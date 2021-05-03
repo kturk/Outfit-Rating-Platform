@@ -1,26 +1,17 @@
 package presentationlayer;
 
-// All collections showed line by line
-// Add collection at bottom
-// Choose collection in each line
 
-import businesslayer.Observable;
 import businesslayer.Observer;
-import businesslayer.model.Collection;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
-// Navigate to CollectionDetailScreen onPress
 public class UserCollectionsScreen extends JFrame implements Observer {
 
     private JPanel panel;
-    private JLabel userLabel;
+    private JLabel collectionLabel;
     private JList collectionList;
     private JTextField newCollectionField;
     private JLabel newCollectionLabel;
@@ -30,8 +21,6 @@ public class UserCollectionsScreen extends JFrame implements Observer {
 
     JScrollPane scrollPane = new JScrollPane();
 
-    private DefaultListModel model = new DefaultListModel();
-
     public UserCollectionsScreen() {
         super("My Collections");
         screenInitializer();
@@ -40,6 +29,7 @@ public class UserCollectionsScreen extends JFrame implements Observer {
     private void screenInitializer() {
         setSize(400,450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         initializePanels();
         locatePanels();
@@ -57,7 +47,6 @@ public class UserCollectionsScreen extends JFrame implements Observer {
     }
 
     private void locatePanels() {
-//        panel.setBounds(40,100,20,20);
         panel.setLayout(null);
     }
 
@@ -66,34 +55,30 @@ public class UserCollectionsScreen extends JFrame implements Observer {
     }
 
     private void initializeComponents() {
-
+        collectionLabel = new JLabel("My Collections");
         collectionList = new JList();
-        userLabel = new JLabel("User: Caner Tangüler");
         newCollectionLabel = new JLabel("New Collection:");
         newCollectionField = new JTextField();
         addNewCollectionButton = new JButton("Add");
         showDetailsButton = new JButton("Show");
         backButton = new JButton("Back");
-
     }
 
     private void locateComponents() {
-//        collectionList.setBounds(40,15, 320,220);
-        scrollPane.setBounds(40,15, 320,220);
-//        collectionList.setLayoutOrientation(JList.VERTICAL);
+        collectionLabel.setBounds(0, 5, 400, 25);
+        collectionLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        scrollPane.setBounds(40,30, 320,220);
 
-        newCollectionLabel.setBounds(10,300,100,25);
-        newCollectionField.setBounds(125,300,150,25);
-        addNewCollectionButton.setBounds(290,300, 80, 25);
-        showDetailsButton.setBounds(160,250, 80, 25);
+        newCollectionLabel.setBounds(10,315,100,25);
+        newCollectionField.setBounds(125,315,150,25);
+        addNewCollectionButton.setBounds(290,315, 80, 25);
+        showDetailsButton.setBounds(160,265, 80, 25);
 
         backButton.setBounds(20,360,110,25);
-
-
     }
 
     private void addComponents() {
-//        panel.add(collectionList);
+        panel.add(collectionLabel);
         panel.add(newCollectionField);
         panel.add(newCollectionLabel);
         panel.add(addNewCollectionButton);
@@ -101,7 +86,6 @@ public class UserCollectionsScreen extends JFrame implements Observer {
         panel.add(backButton);
         scrollPane.setViewportView(collectionList);
         panel.add(scrollPane);
-
     }
 
     public void addNewCollectionListener(ActionListener actionListener) {
@@ -140,10 +124,12 @@ public class UserCollectionsScreen extends JFrame implements Observer {
         setVisible(true);
     }
 
+    public void showError(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage);
+    }
+
     @Override
     public void update(List<?> collections) {
         setList(collections.toArray());
     }
-
-
 }

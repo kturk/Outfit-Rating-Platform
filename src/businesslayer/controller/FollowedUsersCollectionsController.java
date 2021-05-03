@@ -7,13 +7,12 @@ import presentationlayer.FollowedUsersCollectionsScreen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 public class FollowedUsersCollectionsController {
 
-    private User userModel;
-    private FollowedUsersCollectionsScreen followedUsersCollectionsView;
-    private Mediator mediator;
+    private final User userModel;
+    private final FollowedUsersCollectionsScreen followedUsersCollectionsView;
+    private final Mediator mediator;
 
     public FollowedUsersCollectionsController(User userModel,
                                               FollowedUsersCollectionsScreen followedUsersCollectionsView,
@@ -23,10 +22,8 @@ public class FollowedUsersCollectionsController {
         this.mediator = mediator;
 
         this.followedUsersCollectionsView.setList(userModel.getFollowedCollections().toArray());
-
         this.followedUsersCollectionsView.setBackButtonListener(new BackListener());
         this.followedUsersCollectionsView.addShowDetailsListener(new ShowDetailsListener());
-        this.followedUsersCollectionsView.setTitle(userModel.getUserName() + "'s Collections");
     }
 
     public void showView() {
@@ -47,8 +44,12 @@ public class FollowedUsersCollectionsController {
     class ShowDetailsListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             Collection selectedCollection = (Collection) followedUsersCollectionsView.getCollectionList().getSelectedValue();
-            followedUsersCollectionsView.closeScreen();
-            mediator.navigateToFollowedCollectionDetailsScreen(selectedCollection);
+            if (selectedCollection != null) {
+                closeView();
+                mediator.navigateToFollowedCollectionDetailsScreen(selectedCollection);
+            }
+            else
+                followedUsersCollectionsView.showError("Please select a collection from the list.");
         }
     }
 }

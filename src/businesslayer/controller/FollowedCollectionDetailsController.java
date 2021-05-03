@@ -4,7 +4,6 @@ import businesslayer.Mediator;
 import businesslayer.model.Collection;
 import businesslayer.model.Outfit;
 import presentationlayer.FollowedUserCollectionDetailScreen;
-import presentationlayer.UserCollectionDetailScreen;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,12 +12,15 @@ import java.util.List;
 
 public class FollowedCollectionDetailsController {
 
-    private Collection collectionModel;
-    private List<Outfit> outfitModels;
-    private FollowedUserCollectionDetailScreen followedUserCollectionDetailView;
-    private Mediator mediator;
+    private final Collection collectionModel;
+    private final List<Outfit> outfitModels;
+    private final FollowedUserCollectionDetailScreen followedUserCollectionDetailView;
+    private final Mediator mediator;
 
-    public FollowedCollectionDetailsController(Collection collectionModel, List<Outfit> outfitModels, FollowedUserCollectionDetailScreen followedUserCollectionDetailView, Mediator mediator) {
+    public FollowedCollectionDetailsController(Collection collectionModel,
+                                               List<Outfit> outfitModels,
+                                               FollowedUserCollectionDetailScreen followedUserCollectionDetailView,
+                                               Mediator mediator) {
         this.collectionModel = collectionModel;
         this.outfitModels = outfitModels;
         this.followedUserCollectionDetailView = followedUserCollectionDetailView;
@@ -50,7 +52,7 @@ public class FollowedCollectionDetailsController {
 
     class BackListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            followedUserCollectionDetailView.closeScreen();
+            closeView();
             mediator.navigateToFollowedUsersCollectionsScreen();
         }
     }

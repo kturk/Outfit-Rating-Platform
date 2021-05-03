@@ -8,6 +8,11 @@ import java.util.List;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Users
 {
+    /*
+
+                   This class used for clean creation of XML file.
+
+    */
     @XmlElement(name = "User")
     private List<User> userList = new ArrayList<User>();
 

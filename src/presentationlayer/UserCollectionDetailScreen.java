@@ -1,8 +1,5 @@
 package presentationlayer;
 
-// All items line by line
-// Add button at bottom
-
 import businesslayer.Observer;
 import businesslayer.model.Outfit;
 
@@ -11,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-// If if does not belong to viewer dont show add button
 public class UserCollectionDetailScreen extends JFrame implements Observer {
 
     private JPanel panel;
@@ -38,6 +34,7 @@ public class UserCollectionDetailScreen extends JFrame implements Observer {
     private void screenInitializer() {
         setSize(400,450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         initializePanels();
         locatePanels();
@@ -55,7 +52,6 @@ public class UserCollectionDetailScreen extends JFrame implements Observer {
     }
 
     private void locatePanels() {
-//        panel.setBounds(40,100,20,20);
         panel.setLayout(null);
     }
 
@@ -78,7 +74,6 @@ public class UserCollectionDetailScreen extends JFrame implements Observer {
         removeOutfitButton = new JButton("Remove");
 
         backButton = new JButton("Back");
-
     }
 
     private void locateComponents() {
@@ -94,7 +89,6 @@ public class UserCollectionDetailScreen extends JFrame implements Observer {
         removeOutfitButton.setBounds(230,170,110,25);
 
         backButton.setBounds(20,360,110,25);
-
     }
 
     private void addComponents() {
@@ -109,7 +103,6 @@ public class UserCollectionDetailScreen extends JFrame implements Observer {
         panel.add(addOutfitButton);
         panel.add(removeOutfitButton);
         panel.add(backButton);
-
     }
 
     public JList getOutfitList() {
@@ -139,24 +132,6 @@ public class UserCollectionDetailScreen extends JFrame implements Observer {
     public void setBackButtonListener(ActionListener actionListener) {
         backButton.addActionListener(actionListener);
     }
-//
-//    public JTextField getNewCollectionField() {
-//        return newCollectionField;
-//    }
-//
-//    public void setList(Object[] itemList) {
-//        collectionList.setListData(itemList);
-//        collectionList.setBackground(Color.gray);
-//
-//    }
-//
-//    public JList getCollectionList() {
-//        return collectionList;
-//    }
-//
-//    public void addSelectListener(ListSelectionListener listSelectionListener) {
-//        collectionList.addListSelectionListener(listSelectionListener);
-//    }
 
     public void closeScreen(){
         dispose();
@@ -164,6 +139,10 @@ public class UserCollectionDetailScreen extends JFrame implements Observer {
 
     public void showScreen(){
         setVisible(true);
+    }
+
+    public void showError(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage);
     }
 
     @Override
@@ -195,7 +174,6 @@ public class UserCollectionDetailScreen extends JFrame implements Observer {
                 newAddedOutfitsList.add(currentElement);
             }
         }
-
         setOutfitList(newOutfitsList.toArray());
         setAddedOutfitList(newAddedOutfitsList.toArray());
     }

@@ -7,8 +7,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-// All users without current user line by line
-// Follow or unf buttons
 public class SeeUsersScreen extends JFrame implements Observer{
 
     private JPanel panel;
@@ -23,13 +21,14 @@ public class SeeUsersScreen extends JFrame implements Observer{
     private JButton backButton;
 
     public SeeUsersScreen() {
-        super("User List: ");
+        super("User List");
         screenInitializer();
     }
 
     private void screenInitializer() {
         setSize(400,450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
 
         initializePanels();
         locatePanels();
@@ -47,7 +46,6 @@ public class SeeUsersScreen extends JFrame implements Observer{
     }
 
     private void locatePanels() {
-//        panel.setBounds(40,100,20,20);
         panel.setLayout(null);
     }
 
@@ -66,7 +64,6 @@ public class SeeUsersScreen extends JFrame implements Observer{
     }
 
     private void locateComponents() {
-
         usersLabel.setBounds(50,10,110,25);
         usersLabel.setHorizontalAlignment(SwingConstants.CENTER);
         followedUsersLabel.setBounds(240,10,110,25);
@@ -106,8 +103,6 @@ public class SeeUsersScreen extends JFrame implements Observer{
         return followedUserList;
     }
 
-
-
     public void addFollowButtonListener(ActionListener actionListener) {
         followButton.addActionListener(actionListener);
     }
@@ -126,6 +121,10 @@ public class SeeUsersScreen extends JFrame implements Observer{
 
     public void closeScreen(){
         dispose();
+    }
+
+    public void showError(String errorMessage) {
+        JOptionPane.showMessageDialog(this, errorMessage);
     }
 
     @Override
