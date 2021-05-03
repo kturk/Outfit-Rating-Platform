@@ -8,7 +8,8 @@
     "color": "BLACK",
     "numberOfLikes": 10,
     "numberOfDislikes": 5,
-    "comments": []
+    "comments": [],
+    "observers": []
   },
   {
     "id": 2,
@@ -19,7 +20,8 @@
     "color": "YELLOW",
     "numberOfLikes": 2,
     "numberOfDislikes": 16,
-    "comments": []
+    "comments": [],
+    "observers": []
   },
   {
     "id": 3,
@@ -30,6 +32,7 @@
     "color": "ORANGE",
     "numberOfLikes": 3,
     "numberOfDislikes": 6,
-    "comments": []
+    "comments": [],
+    "observers": []
   }
 ]

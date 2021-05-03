@@ -27,7 +27,8 @@ public class UserCollectionsController {
         this.userCollectionsView.setList(userModel.getCollections().toArray());
 
         userCollectionsView.addNewCollectionListener(new AddCollectionListener());
-        userCollectionsView.addSelectListener(new SelectionListener());
+        userCollectionsView.addShowDetailsListener(new ShowDetailsListener());
+        userCollectionsView.setBackButtonListener(new BackListener());
 
     }
 
@@ -46,7 +47,7 @@ public class UserCollectionsController {
     class BackListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             userCollectionsView.closeScreen();
-//            mediator.navigateToMainScreen();
+            mediator.navigateToMainScreen();
         }
     }
 
@@ -57,12 +58,20 @@ public class UserCollectionsController {
         }
     }
 
-    class SelectionListener implements ListSelectionListener {
-        public void valueChanged(ListSelectionEvent e) {
-            JList source = (JList)e.getSource();
-            Collection s = (Collection) source.getSelectedValue();
-            System.out.println(s.getId());
-
+    class ShowDetailsListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            Collection selectedCollection = (Collection) userCollectionsView.getCollectionList().getSelectedValue();
+            userCollectionsView.closeScreen();
+            mediator.navigateToCollectionDetailsScreen(selectedCollection);
         }
     }
+
+//    class SelectionListener implements ListSelectionListener {
+//        public void valueChanged(ListSelectionEvent e) {
+//            JList source = (JList)e.getSource();
+//            Collection s = (Collection) source.getSelectedValue();
+//            System.out.println(s.getId());
+//
+//        }
+//    }
 }

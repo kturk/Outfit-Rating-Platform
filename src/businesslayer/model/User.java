@@ -4,9 +4,7 @@ import businesslayer.Observable;
 import businesslayer.Observer;
 
 import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 @XmlRootElement(name = "User")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -152,10 +150,21 @@ public class User implements Observable{
 
     public void addLikedOutfitId(Integer id) {
         this.getLikedOutfitIds().add(id);
+        notifyObservers();
     }
 
     public void addDislikedOutfitId(Integer id) {
         this.getDislikedOutfitIds().add(id);
+        notifyObservers();
+    }
+
+    public List<Collection> getFollowedCollections() {
+        List<Collection> followedCollections = new ArrayList<Collection>();
+        for(User user : this.getFollowingUsers()) {
+            followedCollections.addAll(user.getCollections());
+        }
+
+        return followedCollections;
     }
 
     @Override
@@ -177,6 +186,14 @@ public class User implements Observable{
             else if(observer.getClass().getSimpleName().equals("SeeUsersScreen")){
                 observer.update(this.getFollowingUsers());
             }
+            else if(observer.getClass().getSimpleName().equals("SeeOutfitsScreen")){
+                List<Integer> likesAndDislikes = new ArrayList<Integer>();
+                likesAndDislikes.addAll(this.getLikedOutfitIds());
+                likesAndDislikes.add(-1);
+                likesAndDislikes.addAll(this.getDislikedOutfitIds());
+                observer.update(likesAndDislikes);
+            }
+
 
         }
     }

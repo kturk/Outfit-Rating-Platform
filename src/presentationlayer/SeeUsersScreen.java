@@ -20,13 +20,15 @@ public class SeeUsersScreen extends JFrame implements Observer{
     private JButton followButton;
     private JButton unfollowButton;
 
+    private JButton backButton;
+
     public SeeUsersScreen() {
         super("User List: ");
         screenInitializer();
     }
 
     private void screenInitializer() {
-        setSize(400,400);
+        setSize(400,450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         initializePanels();
@@ -60,6 +62,7 @@ public class SeeUsersScreen extends JFrame implements Observer{
         followedUserList = new JList();
         followButton = new JButton("Follow");
         unfollowButton = new JButton("Unfollow");
+        backButton = new JButton("Back");
     }
 
     private void locateComponents() {
@@ -72,6 +75,9 @@ public class SeeUsersScreen extends JFrame implements Observer{
         followedUserList.setBounds(220,40,150,250);
         unfollowButton.setBounds(240,300,110, 25);
         followButton.setBounds(50,300,110,25);
+
+        backButton.setBounds(20,360,110,25);
+
     }
 
     private void addComponents() {
@@ -81,6 +87,7 @@ public class SeeUsersScreen extends JFrame implements Observer{
         panel.add(followedUserList);
         panel.add(followButton);
         panel.add(unfollowButton);
+        panel.add(backButton);
     }
 
     public void setUserList(Object[] itemList) {
@@ -107,6 +114,10 @@ public class SeeUsersScreen extends JFrame implements Observer{
 
     public void addUnfollowButtonListener(ActionListener actionListener) {
         unfollowButton.addActionListener(actionListener);
+    }
+
+    public void setBackButtonListener(ActionListener actionListener) {
+        backButton.addActionListener(actionListener);
     }
 
     public void showScreen(){

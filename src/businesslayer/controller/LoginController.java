@@ -49,7 +49,8 @@ public class LoginController {
 
             if(loggedInUser != null){
                 loginView.closeScreen();
-                mediator.navigateToMainScreen(loggedInUser);
+                mediator.setLoggedUser(loggedInUser);
+                mediator.navigateToMainScreen();
             }
             else{
                 loginView.invalidCredentialError("Wrong username or password.");

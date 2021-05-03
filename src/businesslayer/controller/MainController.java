@@ -43,7 +43,7 @@ public class MainController {
     class UserCollectionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             mainView.closeScreen();
-            mediator.navigateToUsersCollectionsScreen(userModel);
+            mediator.navigateToUsersCollectionsScreen();
         }
     }
 
@@ -67,7 +67,7 @@ public class MainController {
         public void actionPerformed(ActionEvent e) {
             System.out.println("ShowFollowedUsersCollections");
             mainView.closeScreen();
-            mediator.navigateToFollowedUsersCollectionsScreen(userModel);
+            mediator.navigateToFollowedUsersCollectionsScreen();
         }
     }
 

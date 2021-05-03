@@ -1,9 +1,12 @@
 package businesslayer.model;
 
+import businesslayer.Observable;
+import businesslayer.Observer;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Outfit implements IOutfit {
+public class Outfit implements IOutfit, Observable {
 
     private static int count = 1;
     private int id;
@@ -15,6 +18,7 @@ public class Outfit implements IOutfit {
     private int numberOfLikes;
     private int numberOfDislikes;
     private List<String> comments;
+    private List<Observer> observers;
 
     public Outfit() {
         this.id = count;
@@ -22,6 +26,7 @@ public class Outfit implements IOutfit {
         this.numberOfLikes = 0;
         this.numberOfDislikes = 0;
         this.comments = new ArrayList<String>();
+        this.observers = new ArrayList<Observer>();
     }
 
     public Outfit(String brandName, ClothingType clothingType, Gender gender, Size size, Color color) {
@@ -35,6 +40,7 @@ public class Outfit implements IOutfit {
         this.numberOfLikes = 0;
         this.numberOfDislikes = 0;
         this.comments = new ArrayList<String>();
+        this.observers = new ArrayList<Observer>();
     }
 
     @Override
@@ -145,6 +151,7 @@ public class Outfit implements IOutfit {
     @Override
     public void addComment(String comment) {
         this.getComments().add(comment);
+        notifyObservers();
     }
 
     @Override
@@ -161,5 +168,22 @@ public class Outfit implements IOutfit {
                 ", size=" + size +
                 ", color=" + color +
                 '}';
+    }
+
+    @Override
+    public void attach(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    @Override
+    public void detach(Observer observer) {
+        this.observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for(Observer observer : observers){
+            observer.update(this.getComments());
+        }
     }
 }

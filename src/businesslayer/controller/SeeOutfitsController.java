@@ -24,12 +24,14 @@ public class SeeOutfitsController {
         this.userModel = userModel;
         this.seeOutfitsView = seeOutfitsView;
 
-        this.seeOutfitsView.setOutfitList(getOutfitsWithNoAction());
+        this.seeOutfitsView.setOutfitList(outfitModels.toArray());
         this.seeOutfitsView.setLikedOutfitList(getUsersLikedOutfits());
         this.seeOutfitsView.setDislikedOutfitList(getUsersDislikedOutfits());
 
         this.seeOutfitsView.addLikeButtonListener(new LikeButtonListener());
         this.seeOutfitsView.addDislikeButtonListener(new DislikeButtonListener());
+        this.seeOutfitsView.addCommentButtonListener(new CommentButtonListener());
+        this.seeOutfitsView.setBackButtonListener(new BackListener());
 
         this.mediator = mediator;
     }
@@ -67,6 +69,7 @@ public class SeeOutfitsController {
         @Override
         public void actionPerformed(ActionEvent e) {
             Outfit selectedOutfit = (Outfit) seeOutfitsView.getOutfitList().getSelectedValue();
+            System.out.println(selectedOutfit);
             selectedOutfit.increaseNumberOfLikes();
             userModel.addLikedOutfitId(selectedOutfit.getId());
         }
@@ -78,6 +81,22 @@ public class SeeOutfitsController {
             Outfit selectedOutfit = (Outfit) seeOutfitsView.getOutfitList().getSelectedValue();
             selectedOutfit.increaseNumberOfDislikes();
             userModel.addDislikedOutfitId(selectedOutfit.getId());
+        }
+    }
+
+    class CommentButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            seeOutfitsView.closeScreen();
+            Outfit selectedOutfit = (Outfit) seeOutfitsView.getOutfitList().getSelectedValue();
+            mediator.navigateToOutfitCommentScreen(userModel, selectedOutfit);
+        }
+    }
+
+    class BackListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            seeOutfitsView.closeScreen();
+            mediator.navigateToMainScreen();
         }
     }
 }

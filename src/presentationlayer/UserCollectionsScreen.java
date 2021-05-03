@@ -26,6 +26,9 @@ public class UserCollectionsScreen extends JFrame implements Observer {
     private JLabel newCollectionLabel;
     private JButton addNewCollectionButton;
     private JButton showDetailsButton;
+    private JButton backButton;
+
+    JScrollPane scrollPane = new JScrollPane();
 
     private DefaultListModel model = new DefaultListModel();
 
@@ -35,7 +38,7 @@ public class UserCollectionsScreen extends JFrame implements Observer {
     }
 
     private void screenInitializer() {
-        setSize(400,400);
+        setSize(400,450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         initializePanels();
@@ -70,30 +73,43 @@ public class UserCollectionsScreen extends JFrame implements Observer {
         newCollectionField = new JTextField();
         addNewCollectionButton = new JButton("Add");
         showDetailsButton = new JButton("Show");
+        backButton = new JButton("Back");
 
     }
 
     private void locateComponents() {
-        collectionList.setBounds(40,15, 320,220);
+//        collectionList.setBounds(40,15, 320,220);
+        scrollPane.setBounds(40,15, 320,220);
+//        collectionList.setLayoutOrientation(JList.VERTICAL);
+
         newCollectionLabel.setBounds(10,300,100,25);
         newCollectionField.setBounds(125,300,150,25);
         addNewCollectionButton.setBounds(290,300, 80, 25);
         showDetailsButton.setBounds(160,250, 80, 25);
 
+        backButton.setBounds(20,360,110,25);
+
 
     }
 
     private void addComponents() {
-        panel.add(collectionList);
+//        panel.add(collectionList);
         panel.add(newCollectionField);
         panel.add(newCollectionLabel);
         panel.add(addNewCollectionButton);
         panel.add(showDetailsButton);
+        panel.add(backButton);
+        scrollPane.setViewportView(collectionList);
+        panel.add(scrollPane);
 
     }
 
     public void addNewCollectionListener(ActionListener actionListener) {
         addNewCollectionButton.addActionListener(actionListener);
+    }
+
+    public void addShowDetailsListener(ActionListener actionListener) {
+        showDetailsButton.addActionListener(actionListener);
     }
 
     public JTextField getNewCollectionField() {
@@ -112,6 +128,10 @@ public class UserCollectionsScreen extends JFrame implements Observer {
 
     public void addSelectListener(ListSelectionListener listSelectionListener) {
         collectionList.addListSelectionListener(listSelectionListener);
+    }
+
+    public void setBackButtonListener(ActionListener actionListener) {
+        backButton.addActionListener(actionListener);
     }
 
     public void closeScreen(){

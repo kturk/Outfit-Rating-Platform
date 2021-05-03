@@ -5,6 +5,8 @@ import businesslayer.model.Outfit;
 import businesslayer.model.User;
 import presentationlayer.StatisticsScreen;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -39,6 +41,8 @@ public class StatisticsController {
         this.statisticsView.setMostFollowedUsersList(getMostFollowedUsers(userModels));
         this.statisticsView.setMostLikedOutfitsList(getMostLikedOutfit(outfitModels));
         this.statisticsView.setMostDislikedOutfitsLists(getMostDislikedOutfit(outfitModels));
+
+        this.statisticsView.setBackButtonListener(new BackListener());
     }
 
     private Object[] getMostFollowedUsers(List<User> users) {
@@ -74,5 +78,12 @@ public class StatisticsController {
                 .filter(v -> v.getNumberOfDislikes() == mostDislikedOutfit.getNumberOfDislikes())
                 .map(Outfit::getBrandName)
                 .toArray();
+    }
+
+    class BackListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            statisticsView.closeScreen();
+            mediator.navigateToMainScreen();
+        }
     }
 }

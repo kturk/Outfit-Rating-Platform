@@ -1,27 +1,31 @@
 package presentationlayer;
 
-import businesslayer.model.Outfit;
-import businesslayer.model.User;
+// All items line by line
+// Add button at bottom
+
+import businesslayer.Observer;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-// Statistics text
-public class StatisticsScreen extends JFrame {
+// If if does not belong to viewer dont show add button
+public class FollowedUserCollectionDetailScreen extends JFrame{
 
     private JPanel panel;
-    private JList<Object> mostFollowedUsers;
-    private JList<Object> mostLikedOutfits;
-    private JList<Object> mostDislikedOutfits;
+
+    private JLabel outfitsLabel;
+
+    private JList outfitList;
+
+    JScrollPane outfitListScrollPane;
 
     private JButton backButton;
 
-    public StatisticsScreen() {
-        super("Statistics page");
+
+    public FollowedUserCollectionDetailScreen() {
+        super("Collection Detail");
         screenInitializer();
     }
 
@@ -54,48 +58,48 @@ public class StatisticsScreen extends JFrame {
     }
 
     private void initializeComponents() {
-        mostFollowedUsers = new JList<Object>();
-        mostLikedOutfits = new JList<Object>();
-        mostDislikedOutfits = new JList<Object>();
+
+        outfitsLabel = new JLabel("All Outfits");
+        outfitList = new JList();
+        outfitListScrollPane = new JScrollPane();
         backButton = new JButton("Back");
+
     }
 
     private void locateComponents() {
-        mostFollowedUsers.setBounds(10, 40, 370, 50);
-        mostLikedOutfits.setBounds(10, 100, 370, 50);
-        mostDislikedOutfits.setBounds(10, 160, 370, 50);
+        outfitsLabel.setBounds(0,10,400,20);
+        outfitsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        outfitListScrollPane.setBounds(20,30,340,280);
         backButton.setBounds(20,360,110,25);
 
     }
 
     private void addComponents() {
-        panel.add(mostFollowedUsers);
-        panel.add(mostLikedOutfits);
-        panel.add(mostDislikedOutfits);
+        panel.add(outfitsLabel);
+        outfitListScrollPane.setViewportView(outfitList);
+        panel.add(outfitListScrollPane);
         panel.add(backButton);
+
     }
 
-    public void setMostFollowedUsersList(Object[] itemList) {
-        mostFollowedUsers.setListData(itemList);
+    public JList getOutfitList() {
+        return outfitList;
     }
 
-    public void setMostLikedOutfitsList(Object[] itemList) {
-        mostLikedOutfits.setListData(itemList);
-    }
-
-    public void setMostDislikedOutfitsLists(Object[] itemList) {
-        mostDislikedOutfits.setListData(itemList);
+    public void setOutfitList(Object[] itemList) {
+        outfitList.setListData(itemList);
     }
 
     public void setBackButtonListener(ActionListener actionListener) {
         backButton.addActionListener(actionListener);
     }
 
+    public void closeScreen(){
+        dispose();
+    }
+
     public void showScreen(){
         setVisible(true);
     }
 
-    public void closeScreen(){
-        dispose();
-    }
 }

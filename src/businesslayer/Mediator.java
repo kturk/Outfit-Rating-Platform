@@ -2,7 +2,6 @@ package businesslayer;
 
 import businesslayer.controller.*;
 import businesslayer.model.Collection;
-import businesslayer.model.IOutfit;
 import businesslayer.model.Outfit;
 import businesslayer.model.User;
 import presentationlayer.*;
@@ -23,9 +22,14 @@ public class Mediator {
     private StatisticsController statisticsController;
     private FollowedUsersCollectionsController followedUsersCollectionsController;
     private SeeOutfitsController seeOutfitsController;
+    private UserCollectionDetailsController userCollectionDetailsController;
+    private FollowedCollectionDetailsController followedCollectionDetailsController;
+    private OutfitCommentController outfitCommentController;
 
     private List<User> userList;
     private List<Outfit> outfitList;
+
+    private User loggedUser;
 
     public Mediator() {
         this.userList = new ArrayList<User>();
@@ -51,16 +55,27 @@ public class Mediator {
         loginController.showView();
     }
 
-    public void navigateToMainScreen(User loggedInUser) {
-        mainController = new MainController(loggedInUser, new MainScreen(), this);
+    public void setLoggedUser(User loggedUser){
+        this.loggedUser = loggedUser;
+    }
+
+    public void navigateToMainScreen() {
+        mainController = new MainController(loggedUser, new MainScreen(), this);
         mainController.showView();
     }
 
-    public void navigateToUsersCollectionsScreen(User loggedInUser) {
+    public void navigateToUsersCollectionsScreen() {
         UserCollectionsScreen screen = new UserCollectionsScreen();
-        loggedInUser.attach(screen);
-        userCollectionsController = new UserCollectionsController(loggedInUser, screen, this);
+        loggedUser.attach(screen);
+        userCollectionsController = new UserCollectionsController(loggedUser, screen, this);
         userCollectionsController.showView();
+    }
+
+    public void navigateToCollectionDetailsScreen(Collection collection) {
+        UserCollectionDetailScreen screen = new UserCollectionDetailScreen();
+        collection.attach(screen);
+        userCollectionDetailsController = new UserCollectionDetailsController(collection, outfitList ,screen, this);
+        userCollectionDetailsController.showView();
     }
 
     public void navigateToSeeUsersScreen(User loggedInUser) {
@@ -70,10 +85,16 @@ public class Mediator {
         seeUsersController.showView();
     }
 
-    public void navigateToFollowedUsersCollectionsScreen(User loggedInUser) {
+    public void navigateToFollowedUsersCollectionsScreen() {
         FollowedUsersCollectionsScreen screen = new FollowedUsersCollectionsScreen();
-        followedUsersCollectionsController = new FollowedUsersCollectionsController(userList, loggedInUser, screen, this);
+        followedUsersCollectionsController = new FollowedUsersCollectionsController(loggedUser, screen, this);
         followedUsersCollectionsController.showView();
+    }
+
+    public void navigateToFollowedCollectionDetailsScreen(Collection collection) {
+        FollowedUserCollectionDetailScreen screen = new FollowedUserCollectionDetailScreen();
+        followedCollectionDetailsController = new FollowedCollectionDetailsController(collection, outfitList ,screen, this);
+        followedCollectionDetailsController.showView();
     }
 
     public void navigateToStatisticsScreen() {
@@ -85,7 +106,15 @@ public class Mediator {
 
     public void navigateToSeeOutfitsScreen(User loggedInUser) {
         SeeOutfitsScreen screen = new SeeOutfitsScreen();
+        loggedInUser.attach(screen);
         seeOutfitsController = new SeeOutfitsController(outfitList, loggedInUser, screen, this);
         seeOutfitsController.showView();
+    }
+
+    public void navigateToOutfitCommentScreen(User loggedInUser, Outfit outfit) {
+        OutfitCommentScreen screen = new OutfitCommentScreen();
+        outfit.attach(screen);
+        outfitCommentController = new OutfitCommentController(loggedInUser, outfit, screen, this);
+        outfitCommentController.showView();
     }
 }

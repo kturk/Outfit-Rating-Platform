@@ -26,6 +26,7 @@ public class SeeUsersController {
 
         this.seeUsersView.addFollowButtonListener(new FollowButtonListener());
         this.seeUsersView.addUnfollowButtonListener(new UnfollowButtonListener());
+        this.seeUsersView.setBackButtonListener(new BackListener());
 
         this.mediator = mediator;
     }
@@ -66,6 +67,13 @@ public class SeeUsersController {
             selectedUser.removeFollowerUser(userModel);
             userModel.removeFollowingUser(selectedUser);
 
+        }
+    }
+
+    class BackListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            seeUsersView.closeScreen();
+            mediator.navigateToMainScreen();
         }
     }
 }
