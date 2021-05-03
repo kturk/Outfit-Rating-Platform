@@ -25,6 +25,7 @@ public class MainController {
         mainView.renderUsername(userModel.getUserName());
         mainView.addUserCollectionsButtonListener(new UserCollectionListener());
         mainView.addSeeUsersButtonListener(new SeeUsersListener());
+        mainView.addSeeOutfitsButtonListener(new SeeOutfitsListener());
         mainView.addShowFollowedUsersCollectionsButtonListener(new ShowFollowedUsersListener());
         mainView.addStatisticsButtonListener(new StatisticsListener());
         mainView.addLogoutButtonListener(new LogoutListener());
@@ -48,15 +49,25 @@ public class MainController {
 
     class SeeUsersListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            System.out.println("ShowUsersScreen");
+            System.out.println("SeeUsersScreen");
             mainView.closeScreen();
             mediator.navigateToSeeUsersScreen(userModel);
+        }
+    }
+
+    class SeeOutfitsListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("SeeOutfitsScreen");
+            mainView.closeScreen();
+            mediator.navigateToSeeOutfitsScreen(userModel);
         }
     }
 
     class ShowFollowedUsersListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             System.out.println("ShowFollowedUsersCollections");
+            mainView.closeScreen();
+            mediator.navigateToFollowedUsersCollectionsScreen(userModel);
         }
     }
 
@@ -64,7 +75,7 @@ public class MainController {
         public void actionPerformed(ActionEvent e) {
             System.out.println("StatisticsScreen");
             mainView.closeScreen();
-            mediator.navigateToStatisticsScreen(userModel);
+            mediator.navigateToStatisticsScreen();
         }
     }
 

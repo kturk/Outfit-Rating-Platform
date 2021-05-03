@@ -25,12 +25,14 @@ public class App {
 
         Users users = new Users();
 
-        User testUser1 = new User("kemal", "arda");
+        User testUser1 = new User("a", "a");
         testUser1.createCollection(new Collection("hnm"));
         User follow1 = new User("can", "pas1");
         User follow2 = new User("arda", "qubit");
         testUser1.addFollowingUser(follow1);
         testUser1.addFollowingUser(follow2);
+        testUser1.getLikedOutfitIds().add(1);
+        testUser1.getDislikedOutfitIds().add(3);
 
         User testUser2 = new User("tu2", "pas2");
         User follow3 = new User("fol3", "folpas3");

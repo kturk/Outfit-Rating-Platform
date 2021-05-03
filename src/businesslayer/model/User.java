@@ -25,6 +25,10 @@ public class User implements Observable{
     private List<Collection> collections;
     @XmlTransient
     private List<Observer> observers;
+    @XmlTransient
+    private List<Integer> likedOutfitIds;
+    @XmlTransient
+    private List<Integer> dislikedOutfitIds;
 
     public User() {
         this.id = count;
@@ -33,6 +37,8 @@ public class User implements Observable{
         this.followerUsers = new ArrayList<User>();
         this.collections = new ArrayList<Collection>();
         this.observers = new ArrayList<Observer>();
+        this.likedOutfitIds = new ArrayList<Integer>();
+        this.dislikedOutfitIds = new ArrayList<Integer>();
     }
 
     public User(String userName, String password) {
@@ -44,7 +50,8 @@ public class User implements Observable{
         this.followerUsers = new ArrayList<User>();
         this.collections = new ArrayList<Collection>();
         this.observers = new ArrayList<Observer>();
-
+        this.likedOutfitIds = new ArrayList<Integer>();
+        this.dislikedOutfitIds = new ArrayList<Integer>();
     }
 
 //    @XmlAttribute
@@ -80,6 +87,14 @@ public class User implements Observable{
 
     public List<Collection> getCollections() {
         return collections;
+    }
+
+    public List<Integer> getLikedOutfitIds() {
+        return likedOutfitIds;
+    }
+
+    public List<Integer> getDislikedOutfitIds() {
+        return dislikedOutfitIds;
     }
 
     public void addFollowingUser(User user) {
@@ -135,6 +150,13 @@ public class User implements Observable{
         return null;
     }
 
+    public void addLikedOutfitId(Integer id) {
+        this.getLikedOutfitIds().add(id);
+    }
+
+    public void addDislikedOutfitId(Integer id) {
+        this.getDislikedOutfitIds().add(id);
+    }
 
     @Override
     public void attach(Observer observer) {

@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 public class StatisticsScreen extends JFrame {
 
     private JPanel panel;
-    private JLabel userLabel;
     private JList<Object> mostFollowedUsers;
     private JList<Object> mostLikedOutfits;
     private JList<Object> mostDislikedOutfits;
@@ -52,21 +51,18 @@ public class StatisticsScreen extends JFrame {
     }
 
     private void initializeComponents() {
-        userLabel = new JLabel("Current user: ");
         mostFollowedUsers = new JList<Object>();
         mostLikedOutfits = new JList<Object>();
         mostDislikedOutfits = new JList<Object>();
     }
 
     private void locateComponents() {
-        userLabel.setBounds(10, 10, 250 ,25);
-        mostFollowedUsers.setBounds(10, 40, 380, 50);
-        mostLikedOutfits.setBounds(10, 100, 380, 50);
-        mostDislikedOutfits.setBounds(10, 160, 380, 50);
+        mostFollowedUsers.setBounds(10, 40, 370, 50);
+        mostLikedOutfits.setBounds(10, 100, 370, 50);
+        mostDislikedOutfits.setBounds(10, 160, 370, 50);
     }
 
     private void addComponents() {
-        panel.add(userLabel);
         panel.add(mostFollowedUsers);
         panel.add(mostLikedOutfits);
         panel.add(mostDislikedOutfits);

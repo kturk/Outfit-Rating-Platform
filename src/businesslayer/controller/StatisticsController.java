@@ -5,6 +5,7 @@ import businesslayer.model.Outfit;
 import businesslayer.model.User;
 import presentationlayer.StatisticsScreen;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,10 +17,11 @@ public class StatisticsController {
     private StatisticsScreen statisticsView;
     private Mediator mediator;
 
-    public StatisticsController(List<User> userModels, List<Outfit> outfitModels, Mediator mediator) {
+    public StatisticsController(List<User> userModels, List<Outfit> outfitModels,
+                                StatisticsScreen statisticsView, Mediator mediator) {
         this.userModels = userModels;
         this.outfitModels = outfitModels;
-        this.statisticsView = new StatisticsScreen();
+        this.statisticsView = statisticsView;
         this.mediator = mediator;
 
         this.setJListContents();
@@ -41,34 +43,36 @@ public class StatisticsController {
 
     private Object[] getMostFollowedUsers(List<User> users) {
         User mostFollowedUser = users.stream()
-                .max(Comparator.comparing(v -> v.getFollowerUsers().size())).get();
+                .max(Comparator.comparing(v -> v.getFollowerUsers().size())).orElse(null);
 
-        List<User> mostFollowedUsers = users.stream()
-                .filter(v -> v.getFollowerUsers().size() == mostFollowedUser.getFollowerUsers().size())
-                .collect(Collectors.toList());
+        return users.stream()
+                .filter(v -> v.getFollowerUsers().size() == mostFollowedUser.getFollowerUsers().size()).toArray();
 
-        return mostFollowedUsers.toArray();
+//        System.out.println(Arrays.toString(mostFollowedUsers));
+//        List<User> mostFollowedUsers = users.stream()
+//                .filter(v -> v.getFollowerUsers().size() == mostFollowedUser.getFollowerUsers().size())
+//                .collect(Collectors.toList());
+//
+//        return mostFollowedUsers.toArray();
     }
 
     private Object[] getMostLikedOutfit(List<Outfit> outfits) {
         Outfit mostLikedOutfit = outfits.stream()
-                .max(Comparator.comparing(Outfit::getNumberOfLikes)).get();
+                .max(Comparator.comparing(Outfit::getNumberOfLikes)).orElse(null);
 
-        List<Outfit> mostLikedOutfits = outfits.stream()
+        return outfits.stream()
                 .filter(v -> v.getNumberOfLikes() == mostLikedOutfit.getNumberOfLikes())
-                .collect(Collectors.toList());
-
-        return mostLikedOutfits.toArray();
+                .map(Outfit::getBrandName)
+                .toArray();
     }
 
     private Object[] getMostDislikedOutfit(List<Outfit> outfits) {
         Outfit mostDislikedOutfit = outfits.stream()
-                .max(Comparator.comparing(Outfit::getNumberOfDislikes)).get();
+                .max(Comparator.comparing(Outfit::getNumberOfDislikes)).orElse(null);
 
-        List<Outfit> mostDislikedOutfits = outfits.stream()
+        return outfits.stream()
                 .filter(v -> v.getNumberOfDislikes() == mostDislikedOutfit.getNumberOfDislikes())
-                .collect(Collectors.toList());
-
-        return mostDislikedOutfits.toArray();
+                .map(Outfit::getBrandName)
+                .toArray();
     }
 }

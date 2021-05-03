@@ -5,10 +5,7 @@ import businesslayer.model.Collection;
 import businesslayer.model.IOutfit;
 import businesslayer.model.Outfit;
 import businesslayer.model.User;
-import presentationlayer.LoginScreen;
-import presentationlayer.MainScreen;
-import presentationlayer.SeeUsersScreen;
-import presentationlayer.UserCollectionsScreen;
+import presentationlayer.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +21,8 @@ public class Mediator {
     private UserCollectionsController userCollectionsController;  // TODO shouldn't this be a local variable?
     private SeeUsersController seeUsersController;
     private StatisticsController statisticsController;
+    private FollowedUsersCollectionsController followedUsersCollectionsController;
+    private SeeOutfitsController seeOutfitsController;
 
     private List<User> userList;
     private List<Outfit> outfitList;
@@ -71,10 +70,22 @@ public class Mediator {
         seeUsersController.showView();
     }
 
-    public void navigateToStatisticsScreen(User loggedInUser) {
-//        SeeUsersScreen screen = new SeeUsersScreen();
+    public void navigateToFollowedUsersCollectionsScreen(User loggedInUser) {
+        FollowedUsersCollectionsScreen screen = new FollowedUsersCollectionsScreen();
+        followedUsersCollectionsController = new FollowedUsersCollectionsController(userList, loggedInUser, screen, this);
+        followedUsersCollectionsController.showView();
+    }
+
+    public void navigateToStatisticsScreen() {
         // TODO no need to attach cuz no data change?
-        statisticsController = new StatisticsController(userList, outfitList, this);
+        StatisticsScreen screen = new StatisticsScreen();
+        statisticsController = new StatisticsController(userList, outfitList, screen,this);
         statisticsController.showView();
+    }
+
+    public void navigateToSeeOutfitsScreen(User loggedInUser) {
+        SeeOutfitsScreen screen = new SeeOutfitsScreen();
+        seeOutfitsController = new SeeOutfitsController(outfitList, loggedInUser, screen, this);
+        seeOutfitsController.showView();
     }
 }

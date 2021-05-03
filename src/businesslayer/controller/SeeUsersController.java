@@ -31,8 +31,7 @@ public class SeeUsersController {
     }
 
     private List<User> getUsersWithoutCurrentUser() {
-        List<User> tempUserList = new ArrayList<User>();
-        tempUserList.addAll(this.userModels);
+        List<User> tempUserList = new ArrayList<User>(this.userModels);
         tempUserList.remove(userModel);
         return tempUserList;
     }

@@ -15,7 +15,8 @@ public class MainScreen extends JFrame{
     private JLabel userLabel;
 
     private JButton userCollectionsButton;
-    private JButton showUsersButton;
+    private JButton seeUsersButton;
+    private JButton seeOutfitsButton;
     private JButton showFollowedUsersCollectionsButton;
     private JButton statisticsButton;
     private JButton logoutButton;
@@ -59,7 +60,8 @@ public class MainScreen extends JFrame{
         userLabel = new JLabel("User: Caner Tangüler");
 
         userCollectionsButton = new JButton("My Collections");
-        showUsersButton = new JButton("See Users");
+        seeUsersButton = new JButton("See Users");
+        seeOutfitsButton = new JButton("See Outfits");
         showFollowedUsersCollectionsButton = new JButton("Collections Of Followed Users");
         statisticsButton = new JButton("Statistics");
         logoutButton = new JButton("Logout");
@@ -70,11 +72,12 @@ public class MainScreen extends JFrame{
 
         userLabel.setBounds(75, 30, 250 ,25);
 
-        userCollectionsButton.setBounds(75,100,250,25);
-        showUsersButton.setBounds(75,140,250,25);
-        showFollowedUsersCollectionsButton.setBounds(75,180,250,25);
-        statisticsButton.setBounds(75,220,250,25);
-        logoutButton.setBounds(75,260,250,25);
+        userCollectionsButton.setBounds(75,80,250,25);
+        seeUsersButton.setBounds(75,120,250,25);
+        seeOutfitsButton.setBounds(75,160,250,25);
+        showFollowedUsersCollectionsButton.setBounds(75,200,250,25);
+        statisticsButton.setBounds(75,240,250,25);
+        logoutButton.setBounds(75,280,250,25);
 
     }
 
@@ -82,7 +85,8 @@ public class MainScreen extends JFrame{
         buttonsPanel.add(userLabel);
 
         buttonsPanel.add(userCollectionsButton);
-        buttonsPanel.add(showUsersButton);
+        buttonsPanel.add(seeUsersButton);
+        buttonsPanel.add(seeOutfitsButton);
         buttonsPanel.add(showFollowedUsersCollectionsButton);
         buttonsPanel.add(statisticsButton);
         buttonsPanel.add(logoutButton);
@@ -97,7 +101,11 @@ public class MainScreen extends JFrame{
     }
 
     public void addSeeUsersButtonListener(ActionListener actionListener) {
-        showUsersButton.addActionListener(actionListener);
+        seeUsersButton.addActionListener(actionListener);
+    }
+
+    public void addSeeOutfitsButtonListener(ActionListener actionListener) {
+        seeOutfitsButton.addActionListener(actionListener);
     }
 
     public void addShowFollowedUsersCollectionsButtonListener(ActionListener actionListener) {
@@ -112,9 +120,9 @@ public class MainScreen extends JFrame{
         logoutButton.addActionListener(actionListener);
     }
 
-    public void setVisible(Boolean visible){
-        setVisible(visible);
-    }
+//    public void setVisible(Boolean visible){
+//        setVisible(visible);
+//    }
 
     public void closeScreen(){
         dispose();
